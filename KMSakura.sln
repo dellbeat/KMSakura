@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31808.319
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMSakura", "KMSakura\KMSakura.csproj", "{804905BE-5964-448B-A374-B82FCA876131}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMSakuraLib", "KMSakuraLib\KMSakuraLib.csproj", "{491845A1-6091-4E72-B83D-5495FCD21FE0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{804905BE-5964-448B-A374-B82FCA876131}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{804905BE-5964-448B-A374-B82FCA876131}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{804905BE-5964-448B-A374-B82FCA876131}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{804905BE-5964-448B-A374-B82FCA876131}.Release|Any CPU.Build.0 = Release|Any CPU
+		{491845A1-6091-4E72-B83D-5495FCD21FE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{491845A1-6091-4E72-B83D-5495FCD21FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{491845A1-6091-4E72-B83D-5495FCD21FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{491845A1-6091-4E72-B83D-5495FCD21FE0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {69B0B653-05F7-472C-A59C-FCBE309A6236}
+	EndGlobalSection
+EndGlobal
