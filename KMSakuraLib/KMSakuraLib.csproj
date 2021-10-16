@@ -10,6 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\MiraiCsharp\Mirai-CSharp.HttpApi\Mirai-CSharp.HttpApi.csproj" />
     <ProjectReference Include="..\..\..\MiraiCsharp\Mirai-CSharp\Mirai-CSharp.csproj" />
   </ItemGroup>
