@@ -12,6 +12,8 @@ using System.Linq;
 using Mirai.CSharp.Handlers;
 using KMSakuraLib.Session;
 using KMSakuraLib.Models;
+using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
 namespace KMSakuraLib
 {
@@ -25,7 +27,7 @@ namespace KMSakuraLib
         /// 创建一个机器人实例
         /// </summary>
         /// <param name="config"></param>
-        public void InitBot(BotConnectConfig config)
+        public async Task<string> InitBot(BotConnectConfig config)
         {
             if (_serviceProvider == null)//初始化
             {   
@@ -47,10 +49,30 @@ namespace KMSakuraLib
                 _scopeDic = new Dictionary<long, IServiceScope>();
             }
 
+            if (_scopeDic.ContainsKey(config.QQNumber))
+            {
+                return "已有连接实例";
+            }
+
             IServiceScope scope = _serviceProvider.CreateScope();//创建新的作用域
-            /*如何添加配置*/
             IServiceProvider provider = scope.ServiceProvider;
+            MiraiHttpSessionOptions options = provider.GetRequiredService<IOptionsSnapshot<MiraiHttpSessionOptions>>().Value;//配置当前作用域的连接配置
+            options.AuthKey = config.AuthKey;
+            options.Host = config.IPAddress;
+            options.Port = config.Port;
             IMiraiHttpSession session = provider.GetRequiredService<MiraiScopedHttpSession>();//获取session
+
+            try
+            {
+                await session.ConnectAsync(config.QQNumber);
+                _scopeDic.Add(config.QQNumber, scope);
+            }
+            catch(Exception ex)
+            {
+                return ex.Message;
+            }
+
+            return "连接成功";
         }
 
         /// <summary>
