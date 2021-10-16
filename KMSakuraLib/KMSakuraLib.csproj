@@ -9,4 +9,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\MiraiCsharp\Mirai-CSharp.HttpApi\Mirai-CSharp.HttpApi.csproj" />
+    <ProjectReference Include="..\..\..\MiraiCsharp\Mirai-CSharp\Mirai-CSharp.csproj" />
+  </ItemGroup>
+
 </Project>

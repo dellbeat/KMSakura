@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMSakura", "KMSakura\KMSaku
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMSakuraLib", "KMSakuraLib\KMSakuraLib.csproj", "{491845A1-6091-4E72-B83D-5495FCD21FE0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mirai-CSharp.HttpApi", "..\..\MiraiCsharp\Mirai-CSharp.HttpApi\Mirai-CSharp.HttpApi.csproj", "{9F59F2FE-C282-4455-B6E6-F3E8ADA39070}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mirai-CSharp", "..\..\MiraiCsharp\Mirai-CSharp\Mirai-CSharp.csproj", "{660CEA77-0052-4B52-AEA5-CE840B19A756}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{491845A1-6091-4E72-B83D-5495FCD21FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{491845A1-6091-4E72-B83D-5495FCD21FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{491845A1-6091-4E72-B83D-5495FCD21FE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F59F2FE-C282-4455-B6E6-F3E8ADA39070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F59F2FE-C282-4455-B6E6-F3E8ADA39070}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F59F2FE-C282-4455-B6E6-F3E8ADA39070}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F59F2FE-C282-4455-B6E6-F3E8ADA39070}.Release|Any CPU.Build.0 = Release|Any CPU
+		{660CEA77-0052-4B52-AEA5-CE840B19A756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{660CEA77-0052-4B52-AEA5-CE840B19A756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{660CEA77-0052-4B52-AEA5-CE840B19A756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{660CEA77-0052-4B52-AEA5-CE840B19A756}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
