@@ -9,7 +9,7 @@ namespace KMSakuraLib.BotHandlers
     /// <summary>
     /// 其他客户端消息[理解为自己发送的消息同步?]
     /// </summary>
-    public class OtherClientMessageHandlers : IMiraiMessageHandler<IMiraiSession, IOtherClientMessageEventArgs>
+    public class OtherClientMessageHandlers : Handler, IMiraiMessageHandler<IMiraiSession, IOtherClientMessageEventArgs>
     {
         public Task HandleMessageAsync(IMiraiSession client, IOtherClientMessageEventArgs message)
         {
@@ -20,7 +20,7 @@ namespace KMSakuraLib.BotHandlers
     /// <summary>
     /// 陌生人消息
     /// </summary>
-    public class StrangerMessageHandlers : IMiraiMessageHandler<IMiraiSession, IStrangerMessageEventArgs>
+    public class StrangerMessageHandlers : Handler, IMiraiMessageHandler<IMiraiSession, IStrangerMessageEventArgs>
     {
         public Task HandleMessageAsync(IMiraiSession client, IStrangerMessageEventArgs message)
         {
@@ -31,7 +31,7 @@ namespace KMSakuraLib.BotHandlers
     /// <summary>
     /// 临时会话消息
     /// </summary>
-    public class TempMessageHandlers : IMiraiMessageHandler<IMiraiSession, ITempMessageEventArgs>
+    public class TempMessageHandlers : Handler, IMiraiMessageHandler<IMiraiSession, ITempMessageEventArgs>
     {
         public Task HandleMessageAsync(IMiraiSession client, ITempMessageEventArgs message)
         {

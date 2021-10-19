@@ -10,12 +10,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\MiraiCsharp\Mirai-CSharp.HttpApi\Mirai-CSharp.HttpApi.csproj" />
-    <ProjectReference Include="..\..\..\MiraiCsharp\Mirai-CSharp\Mirai-CSharp.csproj" />
+    <ProjectReference Include="..\..\MiraiCsharp\Mirai-CSharp.HttpApi\Mirai-CSharp.HttpApi.csproj" />
+    <ProjectReference Include="..\..\MiraiCsharp\Mirai-CSharp\Mirai-CSharp.csproj" />
   </ItemGroup>
 
 </Project>
