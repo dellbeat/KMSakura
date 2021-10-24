@@ -36,6 +36,11 @@ namespace KMSakuraLib
         }
 
         /// <summary>
+        /// 需要写入BOT消息日志的属性名称
+        /// </summary>
+        public const string BotLogName = "number";
+
+        /// <summary>
         /// 初始化日志
         /// </summary>
         private static void InitLogger()

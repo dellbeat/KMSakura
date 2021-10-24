@@ -84,7 +84,7 @@ namespace KMSakuraLib
                 await session.ConnectAsync(config.QQNumber);
                 _scopeDic.Add(config.QQNumber, scope);
                 _session = session as MiraiScopedHttpSession;
-                Common.RecordLogger.InfoMsg("number", config.QQNumber.ToString(), $"BOT{config.QQNumber}登录初始化完成");
+                Common.RecordLogger.InfoMsg(Common.BotLogName, config.QQNumber.ToString(), $"BOT{config.QQNumber}登录初始化完成");
             }
             catch (Exception ex)
             {

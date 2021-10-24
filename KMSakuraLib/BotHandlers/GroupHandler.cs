@@ -3,6 +3,10 @@ using Mirai.CSharp.Models.EventArgs;
 using Mirai.CSharp.Session;
 using System;
 using System.Threading.Tasks;
+using KMSakuraLib.Ability;
+using KMSakuraLib.Session;
+using System.Collections.Generic;
+using Mirai.CSharp.Models.ChatMessages;
 
 namespace KMSakuraLib.BotHandlers
 {
@@ -189,7 +193,11 @@ namespace KMSakuraLib.BotHandlers
     {
         public Task HandleMessageAsync(IMiraiSession client, IGroupMessageEventArgs message)
         {
-            throw new NotImplementedException();
+            MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"群消息到达： 群{message.Sender.Group.Name}({message.Sender.Group.Id})" +
+                $"-成员{message.Sender.Name}({message.Sender.Id}):{string.Join("", (IEnumerable<IChatMessage>)message.Chain)}");
+
+            return Task.FromResult(false);
         }
     }
 
@@ -200,7 +208,11 @@ namespace KMSakuraLib.BotHandlers
     {
         public Task HandleMessageAsync(IMiraiSession client, IGroupMessageRevokedEventArgs message)
         {
-            throw new NotImplementedException();
+            MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"群消息被撤回：消息ID:{message.MessageId} 群{message.Group.Name}({message.Group.Id})" +
+                $"一条消息被{message.Operator.Name}({message.Operator.Id})撤回");
+
+            return Task.FromResult(false);
         }
     }
 }
