@@ -1,12 +1,11 @@
-﻿using log4net;
-using log4net.Config;
-using log4net.Repository;
-using Prism.Events;
+﻿using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using KMSakuraLib.Ability;
+using NLog;
 
 namespace KMSakuraLib
 {
@@ -15,15 +14,14 @@ namespace KMSakuraLib
     /// </summary>
     public class Common
     {
-        private static ILoggerRepository repository;
         /// <summary>
         /// 全局运行日志
         /// </summary>
-        public static ILog RunLogger;
+        public static Logger RunLogger;
         /// <summary>
-        /// 全局聊天记录日志
+        /// 全局消息日志记录
         /// </summary>
-        public static ILog RecordLogger;
+        public static Logger RecordLogger;
         /// <summary>
         /// 全局事件订阅器
         /// </summary>
@@ -42,15 +40,9 @@ namespace KMSakuraLib
         /// </summary>
         private static void InitLogger()
         {
-            /*
-             日志方面后续考虑一BOT一专用日志[目前不清楚如何动态设置logger写入路径]
-             */
-            repository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
-            BasicConfigurator.Configure(repository);
-            RunLogger = LogManager.GetLogger(repository.Name, "RunLogger");
-            RecordLogger = LogManager.GetLogger(repository.Name, "RecordLogger");
-            ea = new EventAggregator();
+            RunLogger = LogManager.GetLogger("run_log");//获取全局运行日志记录器
+            RecordLogger = LoggerHelper.GetLogger("record_log");//获取全局消息日志记录器
+            RunLogger.Info("初始化日志完成");
         }
     }
 }

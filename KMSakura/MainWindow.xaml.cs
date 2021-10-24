@@ -1,19 +1,7 @@
-﻿using KMSakuraLib.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KMSakuraLib;
+using KMSakuraLib.Models;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using KMSakuraLib;
+using KMSakuraLib.Ability;
 
 namespace KMSakura
 {
@@ -24,14 +12,23 @@ namespace KMSakura
     {
         BotConnectConfig Aconfig = null;
         BotConnectConfig BConfig = null;
-        Bot bot = null;
-
+        Bot botA = null;
+        Bot botB = null;
 
         public MainWindow()
         {
             InitializeComponent();
+            Common.CommonInit();
+            InitBotConfig();
+            LoginBot();
+            
+            Common.RunLogger.Info("主程序加载完成");
+        }
 
-            bot = new Bot();
+        private void InitBotConfig()
+        {
+            botA = new Bot();
+            botB = new Bot();
             Aconfig = new BotConnectConfig
             {
                 AuthKey = "8299b471ca7d1a63",
@@ -49,22 +46,19 @@ namespace KMSakura
                 QQNumber = 0,
                 ConfigName = "BConfig"
             };
-
-            LoginBot();
-
         }
 
         private async void LoginBot()
         {
-            string AStatu = await bot.InitBot(Aconfig);
+            string AStatu = await botA.InitBot(Aconfig);
 
-            Bot.RunLogger.Info("A登录状态:" + AStatu);
+            Common.RunLogger.Info(AStatu);
 
-            //string BStatu = await bot.InitBot(BConfig);
+            string BStatu = await botB.InitBot(BConfig);
 
-            //Bot.RunLogger.Info("B登录状态:" + BStatu);
+            Common.RunLogger.Info(BStatu);
 
-            MessageBox.Show(AStatu);
+            MessageBox.Show(AStatu + "|" + BStatu);
         }
 
     }

@@ -1,59 +1,41 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using KMSakuraLib.BotHandlers;
+using KMSakuraLib.BotParser;
+using KMSakuraLib.Models;
+using KMSakuraLib.Session;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Mirai.CSharp.Builders;
+using Mirai.CSharp.Handlers;
 using Mirai.CSharp.HttpApi.Builder;
 using Mirai.CSharp.HttpApi.Invoking;
 using Mirai.CSharp.HttpApi.Options;
 using Mirai.CSharp.HttpApi.Session;
-using Mirai.CSharp.Builders;
-using KMSakuraLib.BotHandlers;
+using NLog;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Mirai.CSharp.Handlers;
-using KMSakuraLib.Session;
-using KMSakuraLib.Models;
-using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
-using log4net.Repository;
-using log4net;
-using log4net.Config;
-using System.Reflection;
-using System.IO;
-using KMSakuraLib.BotParser;
-using Mirai.CSharp.HttpApi.Handlers;
+using KMSakuraLib.Ability;
 
 namespace KMSakuraLib
 {
     public class Bot
     {
-        private IServiceProvider _serviceProvider;
+        private static Dictionary<long, IServiceScope> _scopeDic;
+        
+        private static IServiceProvider _serviceProvider;
 
-        private Dictionary<long, IServiceScope> _scopeDic;
-
-        private static ILoggerRepository repository;
-
-        public static ILog RunLogger;
-
-        public static void InitLogger()
-        {
-            repository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
-            BasicConfigurator.Configure(repository);
-            RunLogger = LogManager.GetLogger(repository.Name, "RunLogger");
-        }
+        /// <summary>
+        /// 会话对象
+        /// </summary>
+        private MiraiScopedHttpSession _session;
 
         /// <summary>
         /// 创建一个机器人实例
         /// </summary>
-        /// <param name="config"></param>
+        /// <param name="config">连接配置</param>
         public async Task<string> InitBot(BotConnectConfig config)
         {
-            if (RunLogger == null)
-            {
-                InitLogger();
-                RunLogger.Info("初始化完成");
-            }
-
             if (_serviceProvider == null)//初始化
             {
                 IServiceCollection servicesCol = new ServiceCollection();//最初的framework
@@ -101,6 +83,8 @@ namespace KMSakuraLib
             {
                 await session.ConnectAsync(config.QQNumber);
                 _scopeDic.Add(config.QQNumber, scope);
+                _session = session as MiraiScopedHttpSession;
+                Common.RecordLogger.InfoMsg("number", config.QQNumber.ToString(), $"BOT{config.QQNumber}登录初始化完成");
             }
             catch (Exception ex)
             {
@@ -108,6 +92,35 @@ namespace KMSakuraLib
             }
 
             return "连接成功";
+        }
+
+        /// <summary>
+        /// 断连方法
+        /// </summary>
+        /// <param name="qqNumber">需要断连的BOT号码</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">无此号码时或者断连中出现的异常</exception>
+        public bool DisConnect(long qqNumber)
+        {
+            if (!_scopeDic.ContainsKey(qqNumber))
+            {
+                throw new Exception($"无号码为{qqNumber}的会话");
+            }
+
+            try
+            {
+                IServiceScope scope = _scopeDic[qqNumber];
+                IMiraiHttpSession session = scope.ServiceProvider.GetRequiredService<IMiraiHttpSession>();//获取会话
+
+                session.Dispose();//释放会话
+                _scopeDic.Remove(qqNumber);//移除关联
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+
+            return true;
         }
 
         /// <summary>
