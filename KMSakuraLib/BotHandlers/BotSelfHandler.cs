@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using KMSakuraLib.Session;
 using Mirai.CSharp.Handlers;
 using Mirai.CSharp.Models.EventArgs;
 using Mirai.CSharp.Session;
+using KMSakuraLib.Ability;
 
 namespace KMSakuraLib.BotHandlers
 {
@@ -20,18 +22,24 @@ namespace KMSakuraLib.BotHandlers
     {
         public Task HandleMessageAsync(IMiraiSession client, IBotDroppedEventArgs message)
         {
-            throw new NotImplementedException();
+            MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"Bot{message.QQNumber}意外断连");
+
+            return Task.FromResult(false);
         }
     }
 
     /// <summary>
-    /// Bot群内权限呗改变
+    /// Bot群内权限被改变
     /// </summary>
     public class BotGroupPermissionChangedHandler : Handler, IMiraiMessageHandler<IMiraiSession, IBotGroupPermissionChangedEventArgs>
     {
         public Task HandleMessageAsync(IMiraiSession client, IBotGroupPermissionChangedEventArgs message)
         {
-            throw new NotImplementedException();
+            MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT在{message.Group.Name}({message.Group.Id})的权限由{message.Origin}更改为{message.Current}");
+
+            return Task.FromResult(false);
         }
     }
 
@@ -42,7 +50,10 @@ namespace KMSakuraLib.BotHandlers
     {
         public Task HandleMessageAsync(IMiraiSession client, IBotInvitedJoinGroupEventArgs message)
         {
-            throw new NotImplementedException();
+            MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT被{message.NickName}({message.FromQQ})邀请至群{message.FromGroupName}({message.FromGroup})");
+
+            return Task.FromResult(false);
         }
     }
 
@@ -53,7 +64,11 @@ namespace KMSakuraLib.BotHandlers
     {
         public Task HandleMessageAsync(IMiraiSession client, IBotJoinedGroupEventArgs message)
         {
-            throw new NotImplementedException();
+            MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT加入了群{message.Group.Name}({message.Group.Id})" +
+                $"{(message.Inviter == null ? "" : $",邀请者为{message.Inviter.Name}({message.Inviter.Id})")}");
+
+            return Task.FromResult(false);
         }
     }
 
@@ -64,7 +79,10 @@ namespace KMSakuraLib.BotHandlers
     {
         public Task HandleMessageAsync(IMiraiSession client, IBotKickedOfflineEventArgs message)
         {
-            throw new NotImplementedException();
+            MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT{message.QQNumber}被迫掉线");
+
+            return Task.FromResult(false);
         }
     }
 
@@ -75,7 +93,11 @@ namespace KMSakuraLib.BotHandlers
     {
         public Task HandleMessageAsync(IMiraiSession client, IBotKickedOutEventArgs message)
         {
-            throw new NotImplementedException();
+            MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT被{message.Operator.Name}({message.Operator.Id})" +
+                $"移出群{message.Group.Name}({message.Group.Id})");
+
+            return Task.FromResult(false);
         }
     }
 
@@ -86,7 +108,11 @@ namespace KMSakuraLib.BotHandlers
     {
         public Task HandleMessageAsync(IMiraiSession client, IBotMutedEventArgs message)
         {
-            throw new NotImplementedException();
+            MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT在群{message.Operator.Group.Name}({message.Operator.Group.Id})" +
+                $"被{message.Operator.Name}({message.Operator.Id})禁言{message.Duration.TotalMinutes}分钟");
+
+            return Task.FromResult(false);
         }
     }
 
@@ -97,7 +123,10 @@ namespace KMSakuraLib.BotHandlers
     {
         public Task HandleMessageAsync(IMiraiSession client, IBotOnlineEventArgs message)
         {
-            throw new NotImplementedException();
+            MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT{message.QQNumber}登录成功");
+
+            return Task.FromResult(false);
         }
     }
 
@@ -108,7 +137,10 @@ namespace KMSakuraLib.BotHandlers
     {
         public Task HandleMessageAsync(IMiraiSession client, IBotPositiveLeaveGroupEventArgs message)
         {
-            throw new NotImplementedException();
+            MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT主动退出群{message.Group.Name}({message.Group.Id})");
+
+            return Task.FromResult(false);
         }
     }
 
@@ -119,7 +151,10 @@ namespace KMSakuraLib.BotHandlers
     {
         public Task HandleMessageAsync(IMiraiSession client, IBotPositiveOfflineEventArgs message)
         {
-            throw new NotImplementedException();
+            MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT{message.QQNumber}主动离线");
+
+            return Task.FromResult(false);
         }
     }
 
@@ -130,7 +165,10 @@ namespace KMSakuraLib.BotHandlers
     {
         public Task HandleMessageAsync(IMiraiSession client, IBotReloginEventArgs message)
         {
-            throw new NotImplementedException();
+            MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT{message.QQNumber}重新登录");
+
+            return Task.FromResult(false);
         }
     }
 
@@ -141,7 +179,11 @@ namespace KMSakuraLib.BotHandlers
     {
         public Task HandleMessageAsync(IMiraiSession client, IBotUnmutedEventArgs message)
         {
-            throw new NotImplementedException();
+            MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT在群{message.Operator.Group.Name}({message.Operator.Group.Id})" +
+                $"被{message.Operator.Name}({message.Operator.Id})解除禁言");
+
+            return Task.FromResult(false);
         }
     }
 }
