@@ -1,28 +1,37 @@
-﻿using KMSakuraLib;
+﻿using Prism.Mvvm;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Collections.ObjectModel;
+using KMSakura.Models;
 using KMSakuraLib.Models;
-using System.Windows;
-using KMSakuraLib.Ability;
+using Mirai.CSharp.Models.EventArgs;
+using KMSakuraLib;
+using KMSakuraLib.Event;
 
-namespace KMSakura
+namespace KMSakura.ViewModels
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public class MainWindowViewModel : BindableBase
     {
         BotConnectConfig Aconfig = null;
         BotConnectConfig BConfig = null;
         Bot botA = null;
         Bot botB = null;
 
-        public MainWindow()
+        private string _title = "测试";
+
+        public string Title
         {
-            InitializeComponent();
+            get => _title;
+            set => SetProperty(ref _title, value);
+        }
+
+        public MainWindowViewModel()
+        {
             Common.CommonInit();
+            GetEvent();
             InitBotConfig();
             LoginBot();
-            
-            Common.RunLogger.Info("主程序加载完成");
         }
 
         private void InitBotConfig()
@@ -34,7 +43,7 @@ namespace KMSakura
                 AuthKey = "8299b471ca7d1a63",
                 IPAddress = "127.0.0.1",
                 Port = 2333,
-                QQNumber = 0,
+                QQNumber = 1413236617,
                 ConfigName = "AConfig"
             };
 
@@ -54,12 +63,16 @@ namespace KMSakura
 
             Common.RunLogger.Info(AStatu);
 
-            string BStatu = await botB.InitBot(BConfig);
+            //string BStatu = await botB.InitBot(BConfig);
 
-            Common.RunLogger.Info(BStatu);
+            //Common.RunLogger.Info(BStatu);
 
-            MessageBox.Show(AStatu + "|" + BStatu);
+            //MessageBox.Show(AStatu + "|" + BStatu);
         }
 
+        private void GetEvent()
+        {
+
+        }
     }
 }

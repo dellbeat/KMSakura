@@ -33,6 +33,7 @@ namespace KMSakuraLib
         public static void CommonInit()
         {
             InitLogger();
+            InitParam();
         }
 
         /// <summary>
@@ -48,6 +49,11 @@ namespace KMSakuraLib
             RunLogger = LogManager.GetLogger("run_log");//获取全局运行日志记录器
             RecordLogger = LoggerHelper.GetLogger("record_log");//获取全局消息日志记录器
             RunLogger.Info("初始化日志完成");
+        }
+
+        private static void InitParam()
+        {
+            ea = new EventAggregator();
         }
     }
 }

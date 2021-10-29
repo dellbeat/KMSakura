@@ -99,7 +99,7 @@ namespace KMSakuraLib.Parsers
     //    }
     //}
 
-    //[RegisterMiraiHttpParser(typeof(DefaultMappableMiraiHttpMessageParser<IBotOnlineEventArgs, BotReloginEventArgs>))]
+    [RegisterMiraiHttpParser(typeof(DefaultMappableMiraiHttpMessageParser<IBotReloginEventArgs, BotReloginEventArgs>))]
     public class BotReloginParser : Parser, IMiraiHttpMessageHandler<IBotReloginEventArgs>
     {
         public Task HandleMessageAsync(IMiraiHttpSession client, IBotReloginEventArgs message)
