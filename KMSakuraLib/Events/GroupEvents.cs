@@ -61,7 +61,7 @@ namespace KMSakuraLib.Events
     }
 
     /// <summary>
-    /// 群成员权限呗改变
+    /// 群成员权限被改变
     /// </summary>
     public class GroupMemberPermissionChangedEvent : PubSubEvent<IKMSakuraMessage<IGroupMemberPermissionChangedEventArgs>>
     {
@@ -93,7 +93,7 @@ namespace KMSakuraLib.Events
     }
 
     /// <summary>
-    /// 群员昵称被改动
+    /// 群名被改动
     /// </summary>
     public class GroupNameChangedEvent : PubSubEvent<IKMSakuraMessage<IGroupNameChangedEventArgs>>
     {
@@ -101,7 +101,7 @@ namespace KMSakuraLib.Events
     }
 
     /// <summary>
-    /// 新群员入群事件
+    /// 新群员入群申请消息到达事件
     /// </summary>
     public class GroupApplyEvent : PubSubEvent<IKMSakuraMessage<IGroupApplyEventArgs>>
     {

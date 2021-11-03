@@ -1,7 +1,5 @@
 ﻿using Mirai.CSharp.Models.EventArgs;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace KMSakuraLib.Models
 {
@@ -15,9 +13,16 @@ namespace KMSakuraLib.Models
 
         public TMessage Message { get; }
 
-        public KMSakuraMessage(long botQQNumber, TMessage message)
+        public KMSakuraMessage(long? botQQNumber, TMessage message)
         {
-            BotQQNumber = botQQNumber;
+            if (botQQNumber == null)
+            {
+                BotQQNumber = -1;
+            }
+            else
+            {
+                BotQQNumber = Convert.ToInt64(botQQNumber);
+            }
             Message = message;
         }
     }
