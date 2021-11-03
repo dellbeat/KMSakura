@@ -71,6 +71,7 @@ namespace KMSakuraLib.Event
     /// <summary>
     /// Bot主动离开群聊
     /// </summary>
+    [System.Obsolete("该事件目前无法被触发 等待进一步确认")]
     public class BotPositiveLeaveGroupEvent : PubSubEvent<IKMSakuraMessage<IBotPositiveLeaveGroupEventArgs>>
     {
 
