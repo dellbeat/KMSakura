@@ -16,20 +16,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KMSakuraLib.Ability;
+using Mirai.CSharp.Models;
+using System.Threading;
+using Mirai.CSharp.Models.ChatMessages;
 
 namespace KMSakuraLib
 {
-    public class Bot
+    public class Bot : IBot
     {
         private static Dictionary<long, IServiceScope> _scopeDic;
-        
+
         private static IServiceProvider _serviceProvider;
+
+        private BotConnectConfig _config;
+
+        /// <summary>
+        /// 当前BOT绑定的QQ号
+        /// </summary>
+        public long QQNumber
+        {
+            get => _config.QQNumber;
+        }
 
         /// <summary>
         /// 会话对象
         /// </summary>
         private MiraiScopedHttpSession _session;
 
+        #region 登录登出方法
         /// <summary>
         /// 创建一个机器人实例
         /// </summary>
@@ -95,40 +109,114 @@ namespace KMSakuraLib
         }
 
         /// <summary>
-        /// 断连方法
+        /// 机器人断连方法
         /// </summary>
-        /// <param name="qqNumber">需要断连的BOT号码</param>
         /// <returns></returns>
         /// <exception cref="Exception">无此号码时或者断连中出现的异常</exception>
-        public bool DisConnect(long qqNumber)
+        public bool DisConnect()
         {
-            if (!_scopeDic.ContainsKey(qqNumber))
+            if (!_scopeDic.ContainsKey(QQNumber))
             {
-                throw new Exception($"无号码为{qqNumber}的会话");
+                throw new Exception($"无号码为{QQNumber}的会话");
             }
 
             try
             {
-                IServiceScope scope = _scopeDic[qqNumber];
+                IServiceScope scope = _scopeDic[QQNumber];
                 IMiraiHttpSession session = scope.ServiceProvider.GetRequiredService<IMiraiHttpSession>();//获取会话
 
                 session.Dispose();//释放会话
-                _scopeDic.Remove(qqNumber);//移除关联
+                _scopeDic.Remove(QQNumber);//移除关联
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
 
             return true;
         }
+        #endregion
+
+        #region 获取账号消息
+        public Task<IFriendInfo[]> GetFriendList(CancellationToken token = default)
+        {
+            return _session.GetFriendListAsync(token);
+        }
+
+        public Task<IGroupInfo[]> GetGroupList(CancellationToken token = default)
+        {
+            return _session.GetGroupListAsync(token);
+        }
+
+        public Task<IGroupMemberInfo[]> GetGroupMemberList(long groupNumber, CancellationToken token = default)
+        {
+            return _session.GetGroupMemberListAsync(groupNumber, token);
+        }
+
+        public Task<IBotProfile> GetBotProfile(CancellationToken token = default)
+        {
+            return _session.GetBotProfileAsync(token);
+        }
+
+        public Task<IFriendProfile> GetFriendProfile(long qqNumber, CancellationToken token = default)
+        {
+            return _session.GetFriendProfileAsync(qqNumber, token);
+        }
+
+        public Task<IGroupMemberProfile> GetGroupMemberProfile(long groupNumber, long qqNumber, CancellationToken token = default)
+        {
+            return _session.GetGroupMemberProfileAsync(groupNumber, qqNumber, token);
+        }
+        #endregion
+
+        #region 消息发送与撤回
+        public Task<int> SendFriendMessage(long qqNumber, IChatMessage[] chain, int? quoteMsgId, CancellationToken token = default)
+        {
+            return _session.SendFriendMessageAsync(qqNumber, chain, quoteMsgId, token);
+        }
+
+        public Task<int> SendFriendMessage(long qqNumber, IMessageChainBuilder builder, int? quoteMsgId, CancellationToken token = default)
+        {
+            return _session.SendFriendMessageAsync(qqNumber, builder, quoteMsgId, token);
+        }
+
+        public Task<int> SendGroupMessage(long groupNumber, IChatMessage[] chain, int? quoteMsgId, CancellationToken token = default)
+        {
+            return _session.SendGroupMessageAsync(groupNumber, chain, quoteMsgId, token);
+        }
+
+        public Task<int> SendGroupMessage(long groupNumber, IMessageChainBuilder builder, int? quoteMsgId, CancellationToken token = default)
+        {
+            return _session.SendGroupMessageAsync(groupNumber, builder, quoteMsgId, token);
+        }
+
+        public Task<int> SendTempMessage(long qqNumber, long groupNumber, IChatMessage[] chain, int? quoteMsgId, CancellationToken token = default)
+        {
+            return _session.SendTempMessageAsync(qqNumber, groupNumber, chain, quoteMsgId, token);
+        }
+
+        public Task<int> SendTempMessage(long qqNumber, long groupNumber, IMessageChainBuilder builder, int? quoteMsgId, CancellationToken token = default)
+        {
+            return _session.SendTempMessageAsync(qqNumber, groupNumber, builder, quoteMsgId, token);
+        }
+
+        public Task SendNudge(NudgeTarget target, long qqNumber, long? groupNumber = null, CancellationToken token = default)
+        {
+            return _session.NudgeAsync(target, qqNumber, groupNumber, token);
+        }
+
+        public Task RevokeMessage(int messageId, CancellationToken token = default)
+        {
+            return _session.RevokeMessageAsync(messageId, token);
+        }
+        #endregion
 
         /// <summary>
         /// 获取所有继承接口的类的实例
         /// </summary>
         /// <param name="parentType">接口类</param>
         /// <returns></returns>
-        public static T[] CreateAllInstancesOf<T>()
+        private static T[] CreateAllInstancesOf<T>()
         {
             return typeof(T).Assembly.GetTypes() //获取当前类库下所有类型
                 .Where(t => typeof(T).IsAssignableFrom(t)) //获取间接或直接继承t的所有类型
@@ -140,11 +228,12 @@ namespace KMSakuraLib
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static Type[] GetAllClass<T>()
+        private static Type[] GetAllClass<T>()
         {
             return typeof(T).Assembly.GetTypes() //获取当前类库下所有类型
                     .Where(t => typeof(T).IsAssignableFrom(t)) //获取间接或直接继承t的所有类型
                     .Where(t => !t.IsAbstract && t.IsClass).ToArray(); //获取非抽象类 排除接口继承
         }
+
     }
 }
