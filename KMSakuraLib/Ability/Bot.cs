@@ -19,6 +19,8 @@ using KMSakuraLib.Ability;
 using Mirai.CSharp.Models;
 using System.Threading;
 using Mirai.CSharp.Models.ChatMessages;
+using System.IO;
+using Mirai.CSharp.HttpApi.Models.EventArgs;
 
 namespace KMSakuraLib
 {
@@ -211,6 +213,152 @@ namespace KMSakuraLib
         }
         #endregion
 
+        #region 文件操作
+        public Task<IGroupFileInfo[]> GetFilelist(long groupNumber, string id, bool fetchDownloadInfo, int offset, int size, CancellationToken token = default)
+        {
+            return _session.GetFilelistAsync(groupNumber, id, fetchDownloadInfo, offset, size, token);
+        }
+
+        public Task<IGroupFileInfo> GetFileInfo(long groupNumber, string id, bool fetchDownloadInfo, CancellationToken token = default)
+        {
+            return _session.GetFileInfoAsync(groupNumber, id, fetchDownloadInfo, token);
+        }
+
+        public Task CreateDirectory(long groupNumber, string id, string directoryName, CancellationToken token = default)
+        {
+            return _session.CreateDirectoryAsync(groupNumber, id, directoryName, token);
+        }
+
+        public Task DeleteFile(long groupNumber, string id, CancellationToken token = default)
+        {
+            return _session.DeleteFileAsync(groupNumber, id, token);
+        }
+
+        public Task MoveFile(long groupNumber, string srcId, string dstId, CancellationToken token = default)
+        {
+            return _session.MoveFileAsync(groupNumber, srcId, dstId, token);
+        }
+
+        public Task RenameFile(long groupNumber, string id, string renameTo, CancellationToken token = default)
+        {
+            return _session.RenameFileAsync(groupNumber, id, renameTo, token);
+        }
+
+        public Task<IGroupFileInfo> UploadFile(string id, Stream fileStream, CancellationToken token = default)
+        {
+            return _session.UploadFileAsync(id, fileStream, token);
+        }
+        #endregion
+
+        #region 账号管理
+        public Task DeleteFriend(long qqNumber, CancellationToken token = default)
+        {
+            return _session.DeleteFriendAsync(qqNumber, token);
+        }
+        #endregion
+
+        #region 群管理
+        public Task Mute(long memberId, long groupNumber, int muteTime, CancellationToken token = default)
+        {
+            TimeSpan muteTimeSpan = new DateTime(1970, 1, 1, 0, 0, 0).AddMinutes(Convert.ToDouble(muteTime)) - new DateTime(1970, 1, 1, 0, 0, 0);
+            return _session.MuteAsync(memberId, groupNumber, muteTimeSpan, token);
+        }
+
+        public Task Unmute(long memberId, long groupNumber, CancellationToken token = default)
+        {
+            return _session.UnmuteAsync(memberId, groupNumber, token);
+        }
+
+        public Task KickMember(long memberId, long groupNumber, string msg = "", CancellationToken token = default)
+        {
+            return _session.KickMemberAsync(memberId, groupNumber, msg, token);
+        }
+
+        public Task LeaveGroup(long groupNumber, CancellationToken token = default)
+        {
+            return _session.LeaveGroupAsync(groupNumber, token);
+        }
+
+        public Task MuteAll(long groupNumber, CancellationToken token = default)
+        {
+            return _session.MuteAllAsync(groupNumber, token);
+        }
+
+        public Task SetEssenceMessage(int id, CancellationToken token = default)
+        {
+            return _session.SetEssenceMessageAsync(id, token);
+        }
+
+        public Task<IGroupConfig> GetGroupConfig(long groupNumber, CancellationToken token = default)
+        {
+            return _session.GetGroupConfigAsync(groupNumber, token);
+        }
+
+        public Task ChangeGroupConfig(long groupNumber, IGroupConfig config, CancellationToken token = default)
+        {
+            return _session.ChangeGroupConfigAsync(groupNumber, config, token);
+        }
+
+        public Task<IGroupMemberInfo> GetGroupMemberInfo(long memberId, long groupNumber, CancellationToken token = default)
+        {
+            return _session.GetGroupMemberInfoAsync(memberId, groupNumber, token);
+        }
+
+        public Task ChangeGroupMemberInfo(long memberId, long groupNumber, IGroupMemberCardInfo info, CancellationToken token = default)
+        {
+            return _session.ChangeGroupMemberInfoAsync(memberId, groupNumber, info, token);
+        }
+
+        public Task SetGroupAdmin(long memberId, long groupNumber, bool assign, CancellationToken token = default)
+        {
+            return _session.SetGroupAdminAsync(memberId, groupNumber, assign, token);
+        }
+        #endregion
+
+        #region 申请请求操作
+        public Task HandleBotInvitedJoinGroup(IApplyResponseArgs args, GroupApplyActions action, string message = null, CancellationToken token = default)
+        {
+            return _session.HandleBotInvitedJoinGroupAsync(args, action, message, token);
+        }
+
+        public Task HandleGroupApply(IApplyResponseArgs args, GroupApplyActions action, string message = null, CancellationToken token = default)
+        {
+            return _session.HandleGroupApplyAsync(args, action, message, token);
+        }
+
+        public Task HandleNewFriendApply(IApplyResponseArgs args, FriendApplyAction action, string message = null, CancellationToken token = default)
+        {
+            return _session.HandleNewFriendApplyAsync(args, action, message, token);
+        }
+        #endregion
+
+        #region 多媒体内容上传
+        public Task<IImageMessage> UploadPicture(UploadTarget type, string imagePath, CancellationToken token = default)
+        {
+            return _session.UploadPictureAsync(type, imagePath, token);
+        }
+
+        public Task<IImageMessage> UploadPicture(UploadTarget type, Stream image, CancellationToken token = default)
+        {
+            return _session.UploadPictureAsync(type, image, token);
+        }
+
+        public Task<IVoiceMessage> UploadVoice(UploadTarget type, string voicePath, CancellationToken token = default)
+        {
+            return _session.UploadVoiceAsync(type, voicePath, token);
+        }
+
+        public Task<IVoiceMessage> UploadVoice(UploadTarget type, Stream voice, CancellationToken token = default)
+        {
+            return _session.UploadVoiceAsync(type, voice, token);
+        }
+
+        public Task<IGroupFileInfo> UploadFile(string id, string path, CancellationToken token = default)
+        {
+            return _session.UploadFileAsync(id, new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read), token);
+        }
+        #endregion
+
         /// <summary>
         /// 获取所有继承接口的类的实例
         /// </summary>
@@ -234,6 +382,5 @@ namespace KMSakuraLib
                     .Where(t => typeof(T).IsAssignableFrom(t)) //获取间接或直接继承t的所有类型
                     .Where(t => !t.IsAbstract && t.IsClass).ToArray(); //获取非抽象类 排除接口继承
         }
-
     }
 }

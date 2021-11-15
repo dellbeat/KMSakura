@@ -7,8 +7,59 @@
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="800">
+        Title="{Binding Title}" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <DataGrid ItemsSource="{Binding DataCol}" AutoGenerateColumns="True" Grid.Column="1" Grid.Row="1"/>
+        <Button Content="获取好友列表" Width="80" Height="30" Command="{Binding GetFriendCommand}"/>
+        <Button Content="发送消息" Width="80" Height="30" Command="{Binding ShowSendMsgWindowCommand}" Grid.Column="2"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="1">
+            <Button Content="获取群列表" Grid.Column="1" Width="80" Height="30" Command="{Binding GetGroupListCommand}" Margin="3"/>
+            <StackPanel Orientation="Horizontal" Background="BlanchedAlmond">
+                <Label Content="目标群号" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding TargetNumber}" Width="80" Height="30" Margin="3"/>
+                <Button Content="获取群成员列表" Command="{Binding GetGroupMemberListCommand}" Width="100" Height="30" Margin="3"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="1">
+            <Button Content="获取个人资料" Command="{Binding GetBotProfileCommand}" Width="80" Height="30" Margin="6,6,6,6"/>
+            <Grid  Background="AliceBlue" Margin="0,3,0,3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <WrapPanel Orientation="Horizontal">
+                    <Label Content="好友QQ" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Profile_FriendQQ}" Width="70" Height="30"/>
+                </WrapPanel>
+                <Button Content="获取好友资料" Command="{Binding GetFriendPorifileCommand}" Grid.Row="1" Width="80" Height="30" Margin="6,6,6,6"/>
+            </Grid>
+            <Grid Background="Gray" Margin="0,3,0,3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="群号码" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Profile_GroupQQ}" Width="70" Height="30"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <Label Content="群员号码" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Profile_GroupMemberQQ}" Width="70" Height="30"/>
+                </StackPanel>
+                <Button Content="获取群员资料" Command="{Binding GetGroupMemberProfileCommand}"  Grid.Row="2" Width="80" Height="30" Margin="6,6,6,6"/>
+            </Grid>
+            
+        </StackPanel>
     </Grid>
 </Window>

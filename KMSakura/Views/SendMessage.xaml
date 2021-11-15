@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="KMSakura.Views.SendMessage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KMSakura.Views"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"       
+        mc:Ignorable="d" Height="450" Width="800">
+    <prism:Dialog.WindowStyle>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="Title" Value="{Binding Title}"/>
+            <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterOwner"/>
+            <Setter Property="Width" Value="800"/>
+            <Setter Property="Height" Value="450"/>
+            <Setter Property="ResizeMode" Value="NoResize"/>
+        </Style>
+    </prism:Dialog.WindowStyle>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid ItemsSource="{Binding ChatMessageCol}" Grid.Column="1" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="消息类型" Binding="{Binding Type}" Width="1*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <Button Content="添加文本消息" Command="{Binding AddPlainMessageCommand}" Margin="3" Height="30"/>
+                <Button Content="添加艾特消息" Command="{Binding AddAtMessageCommand}" Margin="3" Height="30"/>
+                <Button Content="添加艾特全员" Command="{Binding AddAtAllMessageCommand}" Margin="3" Height="30"/>
+                <Button Content="添加图片消息" Command="{Binding AddPictureMessageCommand}" Margin="3" Height="30"/>
+                <Button Content="添加表情" Command="{Binding AddFaceMessageCommand}" Margin="3" Height="30"/>
+                <Button Content="向好友发送闪照" Command="{Binding SendFriendFlashImgMessageCommand}" Margin="3" Height="30"/>
+                <Button Content="向群聊发送闪照" Command="{Binding SendGroupFlashImgMessageCommand}" Margin="3" Height="30"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+                <Button Content="向好友发送语音" Command="{Binding SendFriendVoiceMessageCommand}" Margin="3" Height="30"/>
+                <Button Content="向群聊发送语音" Command="{Binding SendGroupVoiceMessageCommand}" Margin="3" Height="30"/>
+                <Button Content="向好友发送消息" Command="{Binding SendFriendMessageCommand}" Margin="3" Height="30"/>
+                <Button Content="向群聊发送消息" Command="{Binding SendGroupMessageCommand}" Margin="3" Height="30"/>
+                <Button Content="发送临时消息" Command="{Binding SendTempMessageCommand}" Margin="3" Height="30"/>
+                <Button Content="清除消息列表" Command="{Binding ClearMessageCommand}" Margin="3" Height="30"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <Label Content="文本内容" Margin="3,0,3,0"/>
+                <TextBox Text="{Binding TextMessage}" Width="500" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top">
+                <Label Content="艾特QQ号" Grid.Row="2" Margin="3"/>
+                <TextBox Text="{Binding AtQQNumber}" Width="80" Height="30" Grid.Row="2"/>
+                <Label Content="图片地址" Grid.Row="2" Margin="3"/>
+                <TextBox Text="{Binding ImageUrl}" Width="180" Height="30" Grid.Row="2"/>
+                <Label Content="图片ID" Grid.Row="2" Margin="3"/>
+                <TextBox Text="{Binding ImageId}" Width="180" Height="30" Grid.Row="2"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <Label Content="图片路径" Grid.Row="2" Margin="3"/>
+                <TextBox Text="{Binding AbstractImgPath}" Width="150" Height="30" Grid.Row="2"/>
+                <Label Content="表情ID" Grid.Row="2" Margin="3"/>
+                <TextBox Text="{Binding FaceId}" Width="50" Height="30" Grid.Row="2"/>
+                <Label Content="目标QQ/群号" Grid.Row="2" Margin="3"/>
+                <TextBox Text="{Binding TargetQQNumber}" Width="70" Height="30" Grid.Row="2"/>
+                <Label Content="私聊所在群号" Grid.Row="2" Margin="3"/>
+                <TextBox Text="{Binding SubjectNumber}" Width="70" Height="30" Grid.Row="2"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top">
+                <Label Content="语音路径" Grid.Row="2" Margin="3"/>
+                <TextBox Text="{Binding VoicePath}" Width="80" Height="30" Grid.Row="2"/>
+                <Label Content="语音地址" Grid.Row="2" Margin="3"/>
+                <TextBox Text="{Binding VoiceUrl}" Width="180" Height="30" Grid.Row="2"/>
+                <Label Content="语音ID" Grid.Row="2" Margin="3"/>
+                <TextBox Text="{Binding VoiceId}" Width="180" Height="30" Grid.Row="2"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
