@@ -298,6 +298,17 @@ namespace KMSakuraLib
         Task MuteAll(long groupNumber, CancellationToken token = default);
 
         /// <summary>
+        /// 异步关闭全体禁言
+        /// </summary>
+        /// <exception cref="InvalidOperationException"/>
+        /// <exception cref="PermissionDeniedException"/>
+        /// <exception cref="TargetNotFoundException"/>
+        /// <param name="groupNumber">将要关闭全体禁言的群号</param>
+        /// <param name="token">用于取消此异步操作的 <see cref="CancellationToken"/></param>
+        /// <returns>表示此异步操作的 <see cref="Task"/></returns>
+        Task UnmuteAll(long groupNumber, CancellationToken token = default);
+
+        /// <summary>
         /// 异步设置群精华消息
         /// </summary>
         /// <param name="id">消息Id</param>
@@ -325,6 +336,7 @@ namespace KMSakuraLib
         /// <param name="config">群信息。其中不进行修改的值请置为 <see langword="null"/></param>
         /// <param name="token">用于取消此异步操作的 <see cref="CancellationToken"/></param>
         /// <returns>表示此异步操作的 <see cref="Task"/></returns>
+        [Obsolete("目前无法正常使用，后续有空再处理")]
         Task ChangeGroupConfig(long groupNumber, IGroupConfig config, CancellationToken token = default);
 
         /// <summary>
@@ -349,6 +361,7 @@ namespace KMSakuraLib
         /// <param name="info">用户信息。其中不进行修改的值请置为 <see langword="null"/></param>
         /// <param name="token">用于取消此异步操作的 <see cref="CancellationToken"/></param>
         /// <returns>表示此异步操作的 <see cref="Task"/></returns>
+        [Obsolete("目前无法正常使用，后续有空再处理")]
         Task ChangeGroupMemberInfo(long memberId, long groupNumber, IGroupMemberCardInfo info, CancellationToken token = default);
 
         /// <summary>

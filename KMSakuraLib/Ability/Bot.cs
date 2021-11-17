@@ -279,6 +279,11 @@ namespace KMSakuraLib
             return _session.LeaveGroupAsync(groupNumber, token);
         }
 
+        public Task UnmuteAll(long groupNumber, CancellationToken token = default)
+        {
+            return _session.UnmuteAllAsync(groupNumber, token);
+        }
+
         public Task MuteAll(long groupNumber, CancellationToken token = default)
         {
             return _session.MuteAllAsync(groupNumber, token);

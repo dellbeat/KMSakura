@@ -116,7 +116,7 @@ namespace KMSakuraLib.BotHandlers
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
             Common.ea.GetEvent<GroupMemberKickedEvent>().Publish(new KMSakuraMessage<IGroupMemberKickedEventArgs>(session.QQNumber, message));
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"成员{message.Member.Name}({message.Member.Id})" +
-                $"被{message.Operator.Name}({message.Operator.Id})移出群{message.Member.Group.Name}({message.Member.Group.Id})");
+                $"被"+(message.Operator==null?"BOT": $"{message.Operator.Name}({message.Operator.Id})") +$"移出群{message.Member.Group.Name}({message.Member.Group.Id})");
 
             return Task.FromResult(false);
         }
@@ -179,8 +179,8 @@ namespace KMSakuraLib.BotHandlers
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
             Common.ea.GetEvent<GroupMuteAllChangedEvent>().Publish(new KMSakuraMessage<IGroupMuteAllChangedEventArgs>(session.QQNumber, message));
-            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"群{message.Group.Name}({message.Group.Id}){message.Operator.Permission}" +
-                $"{message.Operator.Name}({message.Operator.Id})" + $"{(message.Current ? "开启" : "关闭")}了全体禁言");
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"群{message.Group.Name}({message.Group.Id})" +
+                (message.Operator==null?"BOT":$"{message.Operator.Permission}{message.Operator.Name}({message.Operator.Id})") + $"{(message.Current ? "开启" : "关闭")}了全体禁言");
 
             return Task.FromResult(false);
         }
@@ -244,7 +244,7 @@ namespace KMSakuraLib.BotHandlers
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
             Common.ea.GetEvent<GroupMemberMutedEvent>().Publish(new KMSakuraMessage<IGroupMemberMutedEventArgs>(session.QQNumber, message));
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"群{message.Member.Group.Name}({message.Member.Group.Id})" +
-                $"成员{message.Member.Name}({message.Member.Id})被{message.Operator.Permission}{message.Operator.Name}({message.Operator.Id})" +
+                $"成员{message.Member.Name}({message.Member.Id})被{(message.Operator == null?"BOT":(message.Operator.Permission.ToString()+ message.Operator.Name+$"(message.Operator.Id)"))}" +
                 $"禁言{message.Duration.TotalMinutes}分钟");
 
             return Task.FromResult(false);
@@ -261,7 +261,7 @@ namespace KMSakuraLib.BotHandlers
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
             Common.ea.GetEvent<GroupMemberUnmutedEvent>().Publish(new KMSakuraMessage<IGroupMemberUnmutedEventArgs>(session.QQNumber, message));
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"群{message.Member.Group.Name}({message.Member.Group.Id})" +
-                $"成员{message.Member.Name}({message.Member.Id})被{message.Operator.Permission}{message.Operator.Name}({message.Operator.Id})解除禁言");
+                $"成员{message.Member.Name}({message.Member.Id})被{(message.Operator == null ? "BOT" : (message.Operator.Permission.ToString() + message.Operator.Name + $"(message.Operator.Id)"))})解除禁言");
 
             return Task.FromResult(false);
         }

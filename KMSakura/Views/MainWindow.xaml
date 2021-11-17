@@ -7,11 +7,12 @@
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="{Binding Title}" Height="600" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -30,7 +31,7 @@
                 <Button Content="获取群成员列表" Command="{Binding GetGroupMemberListCommand}" Width="100" Height="30" Margin="3"/>
             </StackPanel>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Row="1">
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.RowSpan="2">
             <Button Content="获取个人资料" Command="{Binding GetBotProfileCommand}" Width="80" Height="30" Margin="6,6,6,6"/>
             <Grid  Background="AliceBlue" Margin="0,3,0,3">
                 <Grid.RowDefinitions>
@@ -43,7 +44,7 @@
                 </WrapPanel>
                 <Button Content="获取好友资料" Command="{Binding GetFriendPorifileCommand}" Grid.Row="1" Width="80" Height="30" Margin="6,6,6,6"/>
             </Grid>
-            <Grid Background="Gray" Margin="0,3,0,3">
+            <Grid Background="Gray" Margin="0,3,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -57,9 +58,194 @@
                     <Label Content="群员号码" VerticalAlignment="Center"/>
                     <TextBox Text="{Binding Profile_GroupMemberQQ}" Width="70" Height="30"/>
                 </StackPanel>
-                <Button Content="获取群员资料" Command="{Binding GetGroupMemberProfileCommand}"  Grid.Row="2" Width="80" Height="30" Margin="6,6,6,6"/>
+                <Button Content="群员QQ资料" Command="{Binding GetGroupMemberProfileCommand}"  Grid.Row="2" Width="80" Height="30" Margin="6,6,6,6"/>
             </Grid>
-            
+            <Grid Background="ForestGreen" Margin="0,3,0,3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="好友号码" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding Delete_FriendQQ}" Width="70" Height="30"/>
+                </StackPanel>
+                <Button Content="删除好友" Command="{Binding DeleteFriendCommand}"  Grid.Row="2" Width="80" Height="30" Margin="6,6,6,6"/>
+            </Grid>
+            <Grid Background="DeepSkyBlue">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="群号码" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding ChangeMemberCard_GroupQQ}" Width="80" Height="30"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <Label Content="QQ" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding ChangeMemberCard_MemberQQ}" Width="90" Height="30"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                    <Label Content="群昵称" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding GroupMemberInfo.Name}" Width="90" Height="30"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="3">
+                    <Label Content="头衔" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding GroupMemberInfo.SpecialTitle}" Width="90" Height="30"/>
+                </StackPanel>
+                <Button Content="修改群员资料" Command="{Binding ChangeGroupMemberInfoCommand}" Width="80" Height="30" Grid.Row="4" Margin="3"/>
+            </Grid>
         </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2">
+            <Grid Background="Beige">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                    <Label Content="群号"/>
+                    <TextBox Text="{Binding Mute_GroupQQ}" Width="80"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,6">
+                    <Label Content="QQ号"/>
+                    <TextBox Text="{Binding Mute_MemberQQ}" Width="80"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,0,0,6">
+                    <Label Content="禁言时间"/>
+                    <TextBox Text="{Binding Mute_Time}" Width="80"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,0,0,6">
+                    <Button Content="禁言" Command="{Binding MuteMemberCommand}" Height="30" Margin="6" Width="55"/>
+                    <Button Content="解禁" Command="{Binding UnmuteMemberCommand}" Height="30" Margin="6" Width="55"/>
+                </StackPanel>
+            </Grid>
+            <Grid Background="BurlyWood">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="0,6,0,6">
+                    <Label Content="群号" Margin="0,0,6,0"/>
+                    <TextBox Text="{Binding Kick_GroupQQ}" Width="90"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,6,0,6" Grid.Row="1">
+                    <Label Content="QQ号" Margin="0,0,6,0"/>
+                    <TextBox Text="{Binding Kick_MemberQQ}" Width="80"/>
+                </StackPanel>
+                <Button Content="移出群聊" Width="80" Command="{Binding KickMemberCommand}" Height="30" Grid.Row="2" Margin="0,6,0,6"/>
+            </Grid>
+            <Grid Background="BlanchedAlmond">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="0,6,0,6">
+                    <Label Content="群号" Margin="0,0,6,0"/>
+                    <TextBox Text="{Binding Leave_GroupQQ}" Width="90"/>
+                </StackPanel>
+                <Button Content="退出群聊" Command="{Binding LeaveGroupCommand}" Grid.Row="1" Height="30" Width="80" Margin="3"/>
+            </Grid>
+            <Grid Background="DeepSkyBlue">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="群号码" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding ChangeConfig_GroupQQ}" Width="80" Height="30"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <Label Content="群名称" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding GroupConfig.Name}" Width="80" Height="30"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                    <Label Content="群公告" VerticalAlignment="Center"/>
+                    <TextBox Text="{Binding GroupConfig.Announcement}" Width="80" Height="30"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,3,0,3">
+                    <CheckBox Content="坦白说" IsThreeState="True" IsChecked="{Binding GroupConfig.ConfessTalk}" Margin="0,0,3,0"/>
+                    <CheckBox Content="匿名聊天" IsThreeState="True" IsChecked="{Binding GroupConfig.AnonymousChat}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="0,3,0,3">
+                    <CheckBox Content="自动审" IsThreeState="True" IsChecked="{Binding GroupConfig.AutoApprove}" Margin="0,0,3,0"/>
+                    <CheckBox Content="允许邀请" IsThreeState="True" IsChecked="{Binding GroupConfig.MemberInvite}"/>
+                </StackPanel>
+                <Button Content="修改群设置" Command="{Binding ChangeGroupConfigCommand}" Width="80" Height="30" Grid.Row="5" Margin="3"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="3">
+            <Grid Background="ForestGreen">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="0,6,0,6">
+                    <Label Content="群号" Margin="0,0,6,0"/>
+                    <TextBox Text="{Binding MuteAll_GroupQQ}" Width="90"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+                    <Button Content="全员禁言" Grid.Row="1" Command="{Binding MuteAllCommand}" Height="30" Width="60" Margin="0,6,3,6"/>
+                    <Button Content="解除禁言" Grid.Row="1"  Command="{Binding UnmuteAllCommand}" Height="30" Width="60" Margin="0,6,3,6"/>
+                </StackPanel>
+            </Grid>
+            <Grid Background="LavenderBlush">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="0,6,0,6">
+                    <Label Content="消息ID" Margin="0,0,6,0"/>
+                    <TextBox Text="{Binding EssenceMessageId}" Width="70"/>
+                </StackPanel>
+                <Button Content="设置精华消息" Grid.Row="1" Command="{Binding SetEssenceMessageCommand}" Height="30" Width="100" Margin="0,6,0,6"/>
+            </Grid>
+            <Grid Background="PapayaWhip">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="0,6,0,6">
+                    <Label Content="群号" Margin="0,0,6,0"/>
+                    <TextBox Text="{Binding Config_GroupQQ}" Width="70"/>
+                </StackPanel>
+                <Button Content="获取群设置" Grid.Row="1" Command="{Binding GetGroupConfigCommand}" Height="30" Width="100" Margin="0,6,0,6"/>
+            </Grid>
+            <Grid Background="Crimson">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="0,6,0,6">
+                    <Label Content="群号" Margin="0,0,6,0"/>
+                    <TextBox Text="{Binding Card_GroupQQ}" Width="70"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,3,0,3" Grid.Row="1">
+                    <Label Content="QQ" Margin="0,0,6,0"/>
+                    <TextBox Text="{Binding Card_MemberQQ}" Width="70"/>
+                </StackPanel>
+                <Button Content="群员群内资料" Grid.Row="2" Command="{Binding GetGroupMemberInfoCommand}" Height="30" Width="100" Margin="0,6,0,6"/>
+            </Grid>
+        </StackPanel>
+        <Grid Background="Azure" Grid.Row="2" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" Margin="0,6,0,6" VerticalAlignment="Center">
+                <Label Content="群号" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding SetAdmin_GroupQQ}" Width="70" Height="20"/>
+                <Label Content="QQ" Margin="0,0,0,0" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding SetAdmin_MemberQQ}" Width="70" Height="20"/>
+                <CheckBox Content="设置为管理员" IsChecked="{Binding SetAdmin_Statu}" VerticalAlignment="Center" Margin="3"/>
+                <Button Content="设置管理员" Command="{Binding SetGroupAdminCommand}" Height="20" Width="80" Margin="6,6,0,6"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
