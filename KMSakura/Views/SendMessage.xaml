@@ -73,13 +73,29 @@
                 <Label Content="私聊所在群号" Grid.Row="2" Margin="3"/>
                 <TextBox Text="{Binding SubjectNumber}" Width="70" Height="30" Grid.Row="2"/>
             </StackPanel>
-            <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top">
-                <Label Content="语音路径" Grid.Row="2" Margin="3"/>
-                <TextBox Text="{Binding VoicePath}" Width="80" Height="30" Grid.Row="2"/>
-                <Label Content="语音地址" Grid.Row="2" Margin="3"/>
-                <TextBox Text="{Binding VoiceUrl}" Width="180" Height="30" Grid.Row="2"/>
-                <Label Content="语音ID" Grid.Row="2" Margin="3"/>
-                <TextBox Text="{Binding VoiceId}" Width="180" Height="30" Grid.Row="2"/>
+            <StackPanel Orientation="Vertical" Grid.Row="3">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="语音路径" Grid.Row="2" Margin="3"/>
+                    <TextBox Text="{Binding VoicePath}" Width="80" Height="30" Grid.Row="2"/>
+                    <Label Content="语音地址" Grid.Row="2" Margin="3"/>
+                    <TextBox Text="{Binding VoiceUrl}" Width="180" Height="30" Grid.Row="2"/>
+                    <Label Content="语音ID" Grid.Row="2" Margin="3"/>
+                    <TextBox Text="{Binding VoiceId}" Width="180" Height="30" Grid.Row="2"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="发送类型" Grid.Row="2" Margin="3"/>
+                    <ComboBox ItemsSource="{Binding SourceArray}" SelectedItem="{Binding NudgeTarget}" Width="80"/>
+                    <Label Content="戳一戳QQ号" Margin="3"/>
+                    <TextBox Text="{Binding NudgeQQNumber}" Width="80" Height="30"/>
+                    <Label Content="戳一戳群号" Margin="3"/>
+                    <TextBox Text="{Binding NudgeGroupNumber}" Width="80" Height="30"/>
+                    <Button Content="戳一戳" Command="{Binding SendNudgeCommand}" Margin="6,0,0,0" Height="30" Width="50"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="撤回消息ID"/>
+                    <TextBox Text="{Binding RecallMessageId}" Width="100"/>
+                    <Button Content="撤回消息" Command="{Binding RecallMessageCommand}" Margin="6,0,0,0" Height="30" Width="80"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
     </Grid>

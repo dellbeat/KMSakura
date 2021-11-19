@@ -10,6 +10,7 @@ using System.IO;
 using System.Windows;
 using Prism.Commands;
 using Prism.Services.Dialogs;
+using Mirai.CSharp.Models;
 
 namespace KMSakura.ViewModels
 {
@@ -140,6 +141,45 @@ namespace KMSakura.ViewModels
             set => SetProperty(ref _chatMessageCol, value);
         }
 
+
+        private NudgeTarget _nudgeTarget;
+
+        public NudgeTarget NudgeTarget
+        {
+            get => _nudgeTarget;
+            set => SetProperty(ref _nudgeTarget, value);
+        }
+
+        private long _nudgeQQNumber;
+
+        public long NudgeQQNumber
+        {
+            get => _nudgeQQNumber;
+            set => SetProperty(ref _nudgeQQNumber, value);
+        }
+
+        private long? _nudgeGroupNumber;
+
+        public long? NudgeGroupNumber
+        {
+            get => _nudgeGroupNumber;
+            set => SetProperty(ref _nudgeGroupNumber, value);
+        }
+
+        private int _recallMessageId;
+
+        public int RecallMessageId
+        {
+            get => _recallMessageId;
+            set => SetProperty(ref _recallMessageId, value);
+        }
+
+        public Array SourceArray
+        {
+            get;
+            set;
+        }
+
         public DelegateCommand AddPlainMessageCommand { get; set; }
         public DelegateCommand AddAtMessageCommand { get; set; }
         public DelegateCommand AddAtAllMessageCommand { get; set; }
@@ -153,6 +193,8 @@ namespace KMSakura.ViewModels
         public DelegateCommand SendFriendMessageCommand { get; set; }
         public DelegateCommand SendGroupMessageCommand { get; set; }
         public DelegateCommand SendTempMessageCommand { get; set; }
+        public DelegateCommand SendNudgeCommand { get; set; }
+        public DelegateCommand RecallMessageCommand { get; set; }
 
         public void InitCommand()
         {
@@ -169,6 +211,32 @@ namespace KMSakura.ViewModels
             SendFriendMessageCommand = new DelegateCommand(SendFriendMessage);
             SendGroupMessageCommand = new DelegateCommand(SendGroupMessage);
             SendTempMessageCommand = new DelegateCommand(SendTempMessage);
+            SendNudgeCommand = new DelegateCommand(SendNudge);
+            RecallMessageCommand = new DelegateCommand(RecallMessage);
+            SourceArray = Enum.GetValues(typeof(NudgeTarget));
+        }
+
+        private async void RecallMessage()
+        {
+            if (RecallMessageId == 0)
+            {
+                return;
+            }
+
+            await BotA.RevokeMessage(RecallMessageId);
+        }
+
+        private async void SendNudge()
+        {
+            if (NudgeTarget == NudgeTarget.Group && (NudgeGroupNumber == 0 || NudgeGroupNumber == null) || NudgeQQNumber == 0)
+            {
+                return;
+            }
+
+            await BotA.SendNudge(NudgeTarget, NudgeQQNumber, NudgeGroupNumber);
+
+            NudgeGroupNumber = null;
+            NudgeQQNumber = 0;
         }
 
         private void AddPlainMessage()
@@ -298,7 +366,7 @@ namespace KMSakura.ViewModels
 
         public async void SendGroupVoiceMessage()
         {
-            if (string.IsNullOrEmpty(VoiceId ) && string.IsNullOrEmpty(VoiceUrl) && !File.Exists(VoicePath))
+            if (string.IsNullOrEmpty(VoiceId) && string.IsNullOrEmpty(VoiceUrl) && !File.Exists(VoicePath))
             {
                 return;
             }
