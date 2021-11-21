@@ -8,6 +8,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using HttpApiModel = Mirai.CSharp.HttpApi.Models.EventArgs;
+using Prism.Commands;
+using System.Collections.ObjectModel;
+using Mirai.CSharp.HttpApi.Models;
+using System.Windows;
+using Newtonsoft.Json;
+using Prism.Services.Dialogs;
 
 namespace KMSakura.ViewModels
 {
@@ -17,21 +23,6 @@ namespace KMSakura.ViewModels
         BotConnectConfig BConfig = null;
         Bot botA = null;
         Bot botB = null;
-
-        private string _title = "测试";
-
-        public string Title
-        {
-            get => _title;
-            set => SetProperty(ref _title, value);
-        }
-
-        public MainWindowViewModel()
-        {
-            Common.CommonInit();
-            InitBotConfig();
-            LoginBot();
-        }
 
         private void InitBotConfig()
         {
@@ -61,12 +52,6 @@ namespace KMSakura.ViewModels
             string AStatu = await botA.InitBot(Aconfig);
 
             Common.RunLogger.Info(AStatu);
-
-            //string BStatu = await botB.InitBot(BConfig);
-
-            //Common.RunLogger.Info(BStatu);
-
-            //MessageBox.Show(AStatu + "|" + BStatu);
         }
     }
 }
