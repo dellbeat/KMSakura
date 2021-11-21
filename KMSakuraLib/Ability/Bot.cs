@@ -214,7 +214,7 @@ namespace KMSakuraLib
         #endregion
 
         #region 文件操作
-        public Task<IGroupFileInfo[]> GetFilelist(long groupNumber, string id, bool fetchDownloadInfo, int offset, int size, CancellationToken token = default)
+        public Task<IGroupFileInfo[]> GetFilelist(long groupNumber, string id, int offset, int size, bool fetchDownloadInfo = false, CancellationToken token = default)
         {
             return _session.GetFilelistAsync(groupNumber, id, fetchDownloadInfo, offset, size, token);
         }
@@ -244,10 +244,6 @@ namespace KMSakuraLib
             return _session.RenameFileAsync(groupNumber, id, renameTo, token);
         }
 
-        public Task<IGroupFileInfo> UploadFile(string id, Stream fileStream, CancellationToken token = default)
-        {
-            return _session.UploadFileAsync(id, fileStream, token);
-        }
         #endregion
 
         #region 账号管理
@@ -358,10 +354,16 @@ namespace KMSakuraLib
             return _session.UploadVoiceAsync(type, voice, token);
         }
 
-        public Task<IGroupFileInfo> UploadFile(string id, string path, CancellationToken token = default)
+        public Task<IGroupFileInfo> UploadFile(string id, long groupNumber, string path, CancellationToken token = default)
         {
-            return _session.UploadFileAsync(id, new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read), token);
+            return _session.UploadFileAsync(id, groupNumber, path, token);
         }
+
+        public Task<IGroupFileInfo> UploadFile(long groupNumber, string? id, string fileName, Stream fileStream, CancellationToken token = default)
+        {
+            return _session.UploadFileAsync(groupNumber, id, fileName, fileStream, token);
+        }
+
         #endregion
 
         /// <summary>

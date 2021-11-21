@@ -23,6 +23,7 @@
         <DataGrid ItemsSource="{Binding DataCol}" AutoGenerateColumns="True" Grid.Column="1" Grid.Row="1"/>
         <Button Content="获取好友列表" Width="80" Height="30" Command="{Binding GetFriendCommand}"/>
         <Button Content="发送消息" Width="80" Height="30" Command="{Binding ShowSendMsgWindowCommand}" Grid.Column="2"/>
+        <Button Content="群文件/多媒体" Width="100" Height="30" Command="{Binding ShowFileUploadWindowCommand}" Grid.Column="3"/>
         <StackPanel Orientation="Horizontal" Grid.Column="1">
             <Button Content="获取群列表" Grid.Column="1" Width="80" Height="30" Command="{Binding GetGroupListCommand}" Margin="3"/>
             <StackPanel Orientation="Horizontal" Background="BlanchedAlmond">

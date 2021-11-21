@@ -76,7 +76,7 @@ namespace KMSakuraLib
         /// <param name="qqNumber">指定群员的QQ号</param>
         /// <param name="token">用于取消此异步操作的 <see cref="CancellationToken"/></param>
         /// <returns></returns>
-        Task<IGroupMemberProfile> GetGroupMemberProfile(long groupNumber,long qqNumber, CancellationToken token = default);
+        Task<IGroupMemberProfile> GetGroupMemberProfile(long groupNumber, long qqNumber, CancellationToken token = default);
         #endregion
 
         #region 消息发送与撤回
@@ -168,16 +168,16 @@ namespace KMSakuraLib
         /// </summary>
         /// <param name="groupNumber">群号</param>
         /// <param name="id">文件夹Id, 为 <see cref="string.Empty"/> 或 <see langword="null"/> 时将获取根目录</param>
-        /// <param name="fetchDownloadInfo">是否获取下载链接</param>
+        /// <param name="fetchDownloadInfo">是否获取下载链接,按照官方建议无必要不获取</param>
         /// <param name="offset">分页偏移</param>
         /// <param name="size">分页大小</param>
         /// <param name="token">用于取消此异步操作的 <see cref="CancellationToken"/></param>
         /// <returns>表示此异步操作的 <see cref="Task"/>, 其值为文件列表</returns>
-        Task<IGroupFileInfo[]> GetFilelist(long groupNumber, string? id, bool fetchDownloadInfo, int offset, int size, CancellationToken token = default);
+        Task<IGroupFileInfo[]> GetFilelist(long groupNumber, string id, int offset, int size, bool fetchDownloadInfo = false, CancellationToken token = default);
 
         /// <summary>
         /// 异步获取给定文件信息
-        /// <paramref name="groupNumber">群号</paramref>
+        /// <param name="groupNumber">群号</param>
         /// <param name="id">文件夹Id, 为 <see cref="string.Empty"/> 或 <see langword="null"/> 时将获取根目录</param>
         /// <param name="fetchDownloadInfo">是否获取下载链接</param>
         /// <param name="token">用于取消此异步操作的 <see cref="CancellationToken"/></param>
@@ -445,10 +445,10 @@ namespace KMSakuraLib
         /// 通过路径上传群文件并获取上传的文件信息
         /// </summary>
         /// <param name="id">目标文件夹Id。为 <see langword="null"/> 时将上传到根目录</param>
-        /// <param name="data">文件二进制数组</param>
+        /// <param name="fileStream">文件流</param>
         /// <param name="token">用于取消此异步操作的 <see cref="CancellationToken"/></param>
         /// <returns>表示此异步操作的 <see cref="Task"/>, 其值为上传后的文件信息</returns>
-        Task<IGroupFileInfo> UploadFile(string? id, Stream fileStream, CancellationToken token = default);
+        Task<IGroupFileInfo> UploadFile(long groupNumber, string? id, string fileName, Stream fileStream, CancellationToken token = default);
 
         /// <summary>
         /// 通过路径上传群文件并获取上传的文件信息
@@ -458,7 +458,7 @@ namespace KMSakuraLib
         /// <param name="token">用于取消此异步操作的 <see cref="CancellationToken"/></param>
         /// <returns>表示此异步操作的 <see cref="Task"/>, 其值为上传后的文件信息</returns>
         /// <exception cref="System.IO.IOException">文件读取过程中出现的异常</exception>
-        Task<IGroupFileInfo> UploadFile(string? id, string path, CancellationToken token = default);
+        Task<IGroupFileInfo> UploadFile(string id, long groupNumber, string path, CancellationToken token = default);
 
         #endregion
     }

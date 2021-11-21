@@ -54,7 +54,7 @@ namespace KMSakuraLib.BotHandlers
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
             Common.ea.GetEvent<BotInvitedJoinGroupEvent>().Publish(new KMSakuraMessage<IBotInvitedJoinGroupEventArgs>(session.QQNumber, message));
-            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT收到来自{message.NickName}({message.FromQQ})邀请至群{message.FromGroupName}({message.FromGroup})的消息");
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT收到来自{message.NickName}({message.FromQQ})邀请至群{message.FromGroupName}({message.FromGroup})的消息，事件编号为{message.EventId}");
 
             return Task.FromResult(false);
         }

@@ -414,6 +414,13 @@ namespace KMSakura.ViewModels
             _dialogService.Show("SendMessage", param, null);
         }
 
+        private void ShowFileUploadWindow()
+        {
+            var param = new DialogParameters();
+            param.Add("bot", botA);
+            _dialogService.Show("FileUploadReqManage", param, null);
+        }
+
         private async void GetGroupList()
         {
             GroupInfo[] infos = await botA.GetGroupList() as GroupInfo[];
@@ -473,6 +480,7 @@ namespace KMSakura.ViewModels
         public DelegateCommand GetFriendPorifileCommand { get; set; }
         public DelegateCommand GetGroupMemberProfileCommand { get; set; }
         public DelegateCommand ShowSendMsgWindowCommand { get; set; }
+        public DelegateCommand ShowFileUploadWindowCommand { get; set; }
         public DelegateCommand DeleteFriendCommand { get; set; }
         public DelegateCommand MuteMemberCommand { get; set; }
         public DelegateCommand UnmuteMemberCommand { get; set; }
@@ -498,6 +506,7 @@ namespace KMSakura.ViewModels
             GetFriendPorifileCommand = new DelegateCommand(GetFriendPorifile);
             GetGroupMemberProfileCommand = new DelegateCommand(GetGroupMemberProfile);
             ShowSendMsgWindowCommand = new DelegateCommand(ShowSendMsgWindow);
+            ShowFileUploadWindowCommand = new DelegateCommand(ShowFileUploadWindow);
             DeleteFriendCommand = new DelegateCommand(DeleteFriend);
             MuteMemberCommand = new DelegateCommand(MuteMember);
             UnmuteMemberCommand = new DelegateCommand(UnmuteMember);
@@ -513,6 +522,7 @@ namespace KMSakura.ViewModels
             SetGroupAdminCommand = new DelegateCommand(SetGroupAdmin);
             DataCol = new ObservableCollection<object>();
         }
+
         private void InitBotConfig()
         {
             botA = new Bot();

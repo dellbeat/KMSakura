@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="KMSakura.Views.FileUploadReqManage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:KMSakura.Views"
+             mc:Ignorable="d" 
+            xmlns:prism="http://prismlibrary.com/"
+            prism:ViewModelLocator.AutoWireViewModel="True" d:DesignHeight="450" d:DesignWidth="800">
+    <prism:Dialog.WindowStyle>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="Title" Value="{Binding Title}"/>
+            <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterOwner"/>
+            <Setter Property="Width" Value="800"/>
+            <Setter Property="Height" Value="450"/>
+            <Setter Property="ResizeMode" Value="NoResize"/>
+        </Style>
+    </prism:Dialog.WindowStyle>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" Grid.ColumnSpan="3">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="本地文件路径" Margin="3"/>
+                <TextBox Text="{Binding FilePath}" Width="100" Height="30" Margin="3"/>
+                <Label Content="群内文件夹ID" Margin="3"/>
+                <TextBox Text="{Binding FileId}" Width="80" Height="30" Margin="3"/>
+                <Label Content="群号" Margin="3"/>
+                <TextBox Text="{Binding FileGroupNumber}" Width="50" Height="30" Margin="3"/>
+                <Button Content="上传文件" Command="{Binding UploadFileCommand}" Width="60" Margin="3"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="群号" Margin="3"/>
+                <TextBox Text="{Binding FileListGroupNumber}" Width="50" Height="30" Margin="3"/>
+                <Label Content="群内文件夹ID" Margin="3"/>
+                <TextBox Text="{Binding FileListId}" Width="80" Height="30" Margin="3"/>
+                <Label Content="分页偏移" Margin="3"/>
+                <TextBox Text="{Binding FileListOffset}" Width="50" Height="30" Margin="3"/>
+                <Label Content="分页大小" Margin="3"/>
+                <TextBox Text="{Binding FileListSize}" Width="50" Height="30" Margin="3"/>
+                <CheckBox Content="携带下载信息（默认不携带）" IsChecked="{Binding FileListFetch}" VerticalAlignment="Center"/>
+                <Button Content="获取文件信息" Command="{Binding GetFileListCommand}" Width="80" Margin="3"/>
+            </StackPanel>
+            <DataGrid ItemsSource="{Binding DataCol}" AutoGenerateColumns="True" Height="150"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="上传目标类型" Margin="3"/>
+                <ComboBox ItemsSource="{Binding UploadImgTarget}" SelectedItem="{Binding ImageTarget}" Width="100"/>
+                <Label Content="本地图片路径" Margin="3"/>
+                <TextBox Text="{Binding ImagePath}" Width="80" Height="30" Margin="3"/>
+                <Button Content="路径上传图片" Command="{Binding UploadImgViaPathCommand}" Width="80" Margin="3"/>
+                <Button Content="流上传图片" Command="{Binding UploadImgViaStreamCommand}" Width="80" Margin="3"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="上传目标类型" Margin="3"/>
+                <ComboBox ItemsSource="{Binding UploadImgTarget}" SelectedItem="{Binding VoiceTarget}" Width="100"/>
+                <Label Content="本地语音路径" Margin="3"/>
+                <TextBox Text="{Binding VoicePath}" Width="80" Height="30" Margin="3"/>
+                <Button Content="路径上传语音" Command="{Binding UploadVioceViaPathCommand}" Width="80" Margin="3"/>
+                <Button Content="流上传语音" Command="{Binding UploadVioceViaStreamCommand}" Width="80" Margin="3"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="事件ID" Margin="3"/>
+                <TextBox Text="{Binding EventId}" Width="80" Height="30" Margin="3"/>
+                <Label Content="来源QQ" Margin="3"/>
+                <TextBox Text="{Binding FromQQ}" Width="80" Height="30" Margin="3"/>
+                <Label Content="来源群" Margin="3"/>
+                <TextBox Text="{Binding FromGroup}" Width="80" Height="30" Margin="3"/>
+                <Label Content="群响应动作" Margin="3"/>
+                <ComboBox ItemsSource="{Binding GroupActionTarget}" SelectedItem="{Binding GroupAction}" Width="80"/>
+                <Label Content="好友响应动作" Margin="3"/>
+                <ComboBox ItemsSource="{Binding FriendActionTraget}" SelectedItem="{Binding FriendAction}" Width="80"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="回复消息" Margin="3"/>
+                <TextBox Text="{Binding DenyMessage}" Width="80" Height="30" Margin="3"/>
+                <Button Content="邀请事件处理" Command="{Binding ApplyGroupInviteCommand}" Width="100" Height="30" Margin="3"/>
+                <Button Content="入群事件处理" Command="{Binding ApplyJoinGroupCommand}" Width="100" Margin="3"/>
+                <Button Content="新好友事件处理" Command="{Binding ApplyNewFriendCommand}" Width="100" Margin="3"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

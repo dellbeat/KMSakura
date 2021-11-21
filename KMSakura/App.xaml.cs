@@ -24,6 +24,7 @@ namespace KMSakura
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterDialog<SendMessage>();
+            containerRegistry.RegisterDialog<FileUploadReqManage>();
         }
     }
 }
