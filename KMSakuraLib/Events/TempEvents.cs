@@ -7,7 +7,7 @@ namespace KMSakuraLib.Events
     /// <summary>
     /// 其他客户端消息事件订阅
     /// </summary>
-    public class OtherClientMessageEvent : PubSubEvent<IKMSakuraMessage<IOtherClientMessageEventArgs>>
+    public class OtherClientMessageEvent : PubSubEvent<(long?, IOtherClientMessageEventArgs)>
     {
 
     }
@@ -15,7 +15,7 @@ namespace KMSakuraLib.Events
     /// <summary>
     /// 陌生人消息事件订阅
     /// </summary>
-    public class StrangerMessageEvent : PubSubEvent<IKMSakuraMessage<IStrangerMessageEventArgs>>
+    public class StrangerMessageEvent : PubSubEvent<(long?, IStrangerMessageEventArgs)>
     {
 
     }
@@ -23,7 +23,7 @@ namespace KMSakuraLib.Events
     /// <summary>
     /// 临时会话消息事件订阅
     /// </summary>
-    public class TempMessageEvent : PubSubEvent<IKMSakuraMessage<ITempMessageEventArgs>>
+    public class TempMessageEvent : PubSubEvent<(long?, ITempMessageEventArgs)>
     {
 
     }

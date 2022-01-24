@@ -23,7 +23,7 @@ namespace KMSakuraLib.BotHandlers
         public Task HandleMessageAsync(IMiraiSession client, IBotDroppedEventArgs message)
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
-            Common.ea.GetEvent<BotDroppedEvent>().Publish(new KMSakuraMessage<IBotDroppedEventArgs>(session.QQNumber, message));
+            Common.ea.GetEvent<BotDroppedEvent>().Publish((session.QQNumber, message));
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"Bot{message.QQNumber}意外断连");
 
             return Task.FromResult(false);
@@ -38,7 +38,7 @@ namespace KMSakuraLib.BotHandlers
         public Task HandleMessageAsync(IMiraiSession client, IBotGroupPermissionChangedEventArgs message)
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
-            Common.ea.GetEvent<BotGroupPermissionChangedEvent>().Publish(new KMSakuraMessage<IBotGroupPermissionChangedEventArgs>(session.QQNumber, message));
+            Common.ea.GetEvent<BotGroupPermissionChangedEvent>().Publish((session.QQNumber, message));
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT在{message.Group.Name}({message.Group.Id})的权限由{message.Origin}更改为{message.Current}");
 
             return Task.FromResult(false);
@@ -53,7 +53,7 @@ namespace KMSakuraLib.BotHandlers
         public Task HandleMessageAsync(IMiraiSession client, IBotInvitedJoinGroupEventArgs message)
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
-            Common.ea.GetEvent<BotInvitedJoinGroupEvent>().Publish(new KMSakuraMessage<IBotInvitedJoinGroupEventArgs>(session.QQNumber, message));
+            Common.ea.GetEvent<BotInvitedJoinGroupEvent>().Publish((session.QQNumber, message));
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT收到来自{message.NickName}({message.FromQQ})邀请至群{message.FromGroupName}({message.FromGroup})的消息，事件编号为{message.EventId}");
 
             return Task.FromResult(false);
@@ -68,7 +68,7 @@ namespace KMSakuraLib.BotHandlers
         public Task HandleMessageAsync(IMiraiSession client, IBotJoinedGroupEventArgs message)
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
-            Common.ea.GetEvent<BotJoinedGroupEvent>().Publish(new KMSakuraMessage<IBotJoinedGroupEventArgs>(session.QQNumber, message));
+            Common.ea.GetEvent<BotJoinedGroupEvent>().Publish((session.QQNumber, message));
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT加入了群{message.Group.Name}({message.Group.Id})" +
                 $"{(message.Inviter == null ? "" : $",邀请者为{message.Inviter.Name}({message.Inviter.Id})")}");
 
@@ -84,7 +84,7 @@ namespace KMSakuraLib.BotHandlers
         public Task HandleMessageAsync(IMiraiSession client, IBotKickedOfflineEventArgs message)
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
-            Common.ea.GetEvent<BotKickedOfflineEvent>().Publish(new KMSakuraMessage<IBotKickedOfflineEventArgs>(session.QQNumber, message));
+            Common.ea.GetEvent<BotKickedOfflineEvent>().Publish((session.QQNumber, message));
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT{message.QQNumber}被迫掉线");
 
             return Task.FromResult(false);
@@ -99,7 +99,7 @@ namespace KMSakuraLib.BotHandlers
         public Task HandleMessageAsync(IMiraiSession client, IBotKickedOutEventArgs message)
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
-            Common.ea.GetEvent<BotKickedOutEvent>().Publish(new KMSakuraMessage<IBotKickedOutEventArgs>(session.QQNumber, message));
+            Common.ea.GetEvent<BotKickedOutEvent>().Publish((session.QQNumber, message));
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT被{message.Operator.Name}({message.Operator.Id})" +
                 $"移出群{message.Group.Name}({message.Group.Id})");
 
@@ -115,7 +115,7 @@ namespace KMSakuraLib.BotHandlers
         public Task HandleMessageAsync(IMiraiSession client, IBotMutedEventArgs message)
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
-            Common.ea.GetEvent<BotMutedEvent>().Publish(new KMSakuraMessage<IBotMutedEventArgs>(session.QQNumber, message));
+            Common.ea.GetEvent<BotMutedEvent>().Publish((session.QQNumber, message));
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT在群{message.Operator.Group.Name}({message.Operator.Group.Id})" +
                 $"被{message.Operator.Name}({message.Operator.Id})禁言{message.Duration.TotalMinutes}分钟");
 
@@ -131,7 +131,7 @@ namespace KMSakuraLib.BotHandlers
         public Task HandleMessageAsync(IMiraiSession client, IBotOnlineEventArgs message)
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
-            Common.ea.GetEvent<BotOnlineEvent>().Publish(new KMSakuraMessage<IBotOnlineEventArgs>(session.QQNumber, message));
+            Common.ea.GetEvent<BotOnlineEvent>().Publish((session.QQNumber, message));
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT{message.QQNumber}登录成功");
 
             return Task.FromResult(false);
@@ -147,7 +147,7 @@ namespace KMSakuraLib.BotHandlers
         public Task HandleMessageAsync(IMiraiSession client, IBotPositiveLeaveGroupEventArgs message)
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
-            Common.ea.GetEvent<BotPositiveLeaveGroupEvent>().Publish(new KMSakuraMessage<IBotPositiveLeaveGroupEventArgs>(session.QQNumber, message));
+            Common.ea.GetEvent<BotPositiveLeaveGroupEvent>().Publish((session.QQNumber, message));
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT主动退出群{message.Group.Name}({message.Group.Id})");
 
             return Task.FromResult(false);
@@ -162,7 +162,7 @@ namespace KMSakuraLib.BotHandlers
         public Task HandleMessageAsync(IMiraiSession client, IBotPositiveOfflineEventArgs message)
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
-            Common.ea.GetEvent<BotPositiveOfflineEvent>().Publish(new KMSakuraMessage<IBotPositiveOfflineEventArgs>(session.QQNumber, message));
+            Common.ea.GetEvent<BotPositiveOfflineEvent>().Publish((session.QQNumber, message));
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT{message.QQNumber}主动离线");
 
             return Task.FromResult(false);
@@ -177,7 +177,7 @@ namespace KMSakuraLib.BotHandlers
         public Task HandleMessageAsync(IMiraiSession client, IBotReloginEventArgs message)
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
-            Common.ea.GetEvent<BotReloginEvent>().Publish(new KMSakuraMessage<IBotReloginEventArgs>(session.QQNumber, message));
+            Common.ea.GetEvent<BotReloginEvent>().Publish((session.QQNumber, message));
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT{message.QQNumber}重新登录");
 
             return Task.FromResult(false);
@@ -192,7 +192,7 @@ namespace KMSakuraLib.BotHandlers
         public Task HandleMessageAsync(IMiraiSession client, IBotUnmutedEventArgs message)
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
-            Common.ea.GetEvent<BotUnmutedEvent>().Publish(new KMSakuraMessage<IBotUnmutedEventArgs>(session.QQNumber, message));
+            Common.ea.GetEvent<BotUnmutedEvent>().Publish((session.QQNumber, message));
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"BOT在群{message.Operator.Group.Name}({message.Operator.Group.Id})" +
                 $"被{message.Operator.Name}({message.Operator.Id})解除禁言");
 

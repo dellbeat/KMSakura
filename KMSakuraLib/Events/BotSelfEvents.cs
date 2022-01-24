@@ -7,7 +7,7 @@ namespace KMSakuraLib.Event
     /// <summary>
     /// Bot意外断连
     /// </summary>
-    public class BotDroppedEvent : PubSubEvent<IKMSakuraMessage<IBotDroppedEventArgs>>
+    public class BotDroppedEvent : PubSubEvent<(long?, IBotDroppedEventArgs)>
     {
 
     }
@@ -15,7 +15,7 @@ namespace KMSakuraLib.Event
     /// <summary>
     /// Bot群内权限被改变
     /// </summary>
-    public class BotGroupPermissionChangedEvent : PubSubEvent<IKMSakuraMessage<IBotGroupPermissionChangedEventArgs>>
+    public class BotGroupPermissionChangedEvent : PubSubEvent<(long?, IBotGroupPermissionChangedEventArgs)>
     {
 
     }
@@ -23,7 +23,7 @@ namespace KMSakuraLib.Event
     /// <summary>
     /// Bot被邀请入群
     /// </summary>
-    public class BotInvitedJoinGroupEvent : PubSubEvent<IKMSakuraMessage<IBotInvitedJoinGroupEventArgs>>
+    public class BotInvitedJoinGroupEvent : PubSubEvent<(long?, IBotInvitedJoinGroupEventArgs)>
     {
 
     }
@@ -31,7 +31,7 @@ namespace KMSakuraLib.Event
     /// <summary>
     /// Bot入群消息
     /// </summary>
-    public class BotJoinedGroupEvent : PubSubEvent<IKMSakuraMessage<IBotJoinedGroupEventArgs>>
+    public class BotJoinedGroupEvent : PubSubEvent<(long?, IBotJoinedGroupEventArgs)>
     {
 
     }
@@ -39,7 +39,7 @@ namespace KMSakuraLib.Event
     /// <summary>
     /// BOT被迫掉线
     /// </summary>
-    public class BotKickedOfflineEvent : PubSubEvent<IKMSakuraMessage<IBotKickedOfflineEventArgs>>
+    public class BotKickedOfflineEvent : PubSubEvent<(long?, IBotKickedOfflineEventArgs)>
     {
 
     }
@@ -47,7 +47,7 @@ namespace KMSakuraLib.Event
     /// <summary>
     /// BOT被移出群聊
     /// </summary>
-    public class BotKickedOutEvent : PubSubEvent<IKMSakuraMessage<IBotKickedOutEventArgs>>
+    public class BotKickedOutEvent : PubSubEvent<(long?, IBotKickedOutEventArgs)>
     {
 
     }
@@ -55,7 +55,7 @@ namespace KMSakuraLib.Event
     /// <summary>
     /// Bot被禁言
     /// </summary>
-    public class BotMutedEvent : PubSubEvent<IKMSakuraMessage<IBotMutedEventArgs>>
+    public class BotMutedEvent : PubSubEvent<(long?, IBotMutedEventArgs)>
     {
 
     }
@@ -63,7 +63,7 @@ namespace KMSakuraLib.Event
     /// <summary>
     /// Bot登录成功
     /// </summary>
-    public class BotOnlineEvent : PubSubEvent<IKMSakuraMessage<IBotOnlineEventArgs>>
+    public class BotOnlineEvent : PubSubEvent<(long?, IBotOnlineEventArgs)>
     {
 
     }
@@ -72,7 +72,7 @@ namespace KMSakuraLib.Event
     /// Bot主动离开群聊
     /// </summary>
     [System.Obsolete("该事件目前无法被触发 等待进一步确认")]
-    public class BotPositiveLeaveGroupEvent : PubSubEvent<IKMSakuraMessage<IBotPositiveLeaveGroupEventArgs>>
+    public class BotPositiveLeaveGroupEvent : PubSubEvent<(long?, IBotPositiveLeaveGroupEventArgs)>
     {
 
     }
@@ -80,7 +80,7 @@ namespace KMSakuraLib.Event
     /// <summary>
     /// Bot主动离线(有这个功能吗?)
     /// </summary>
-    public class BotPositiveOfflineEvent : PubSubEvent<IKMSakuraMessage<IBotPositiveOfflineEventArgs>>
+    public class BotPositiveOfflineEvent : PubSubEvent<(long?, IBotPositiveOfflineEventArgs)>
     {
 
     }
@@ -88,7 +88,7 @@ namespace KMSakuraLib.Event
     /// <summary>
     /// Bot重新登录
     /// </summary>
-    public class BotReloginEvent : PubSubEvent<IKMSakuraMessage<IBotReloginEventArgs>>
+    public class BotReloginEvent : PubSubEvent<(long?, IBotReloginEventArgs)>
     {
 
     }
@@ -96,7 +96,7 @@ namespace KMSakuraLib.Event
     /// <summary>
     /// Bot被解禁
     /// </summary>
-    public class BotUnmutedEvent : PubSubEvent<IKMSakuraMessage<IBotUnmutedEventArgs>>
+    public class BotUnmutedEvent : PubSubEvent<(long?, IBotUnmutedEventArgs)>
     {
 
     }

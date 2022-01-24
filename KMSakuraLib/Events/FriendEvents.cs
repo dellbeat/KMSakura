@@ -10,7 +10,7 @@ namespace KMSakuraLib.Events
     /// <summary>
     /// 好友输入状态改变
     /// </summary>
-    public class FriendInputStatusChangedEvent : PubSubEvent<IKMSakuraMessage<IFriendInputStatusChangedEventArgs>>
+    public class FriendInputStatusChangedEvent : PubSubEvent<(long?, IFriendInputStatusChangedEventArgs)>
     {
 
     }
@@ -18,7 +18,7 @@ namespace KMSakuraLib.Events
     /// <summary>
     /// 好友消息到达
     /// </summary>
-    public class FriendMessageEvent : PubSubEvent<IKMSakuraMessage<IFriendMessageEventArgs>>
+    public class FriendMessageEvent : PubSubEvent<(long?, IFriendMessageEventArgs)>
     {
 
     }
@@ -26,7 +26,7 @@ namespace KMSakuraLib.Events
     /// <summary>
     /// 好友消息被撤回
     /// </summary>
-    public class FriendMessageRevokedEvent : PubSubEvent<IKMSakuraMessage<IFriendMessageRevokedEventArgs>>
+    public class FriendMessageRevokedEvent : PubSubEvent<(long?, IFriendMessageRevokedEventArgs)>
     {
 
     }
@@ -34,7 +34,7 @@ namespace KMSakuraLib.Events
     /// <summary>
     /// 好友昵称改变
     /// </summary>
-    public class FriendNickChangedEvent : PubSubEvent<IKMSakuraMessage<IFriendNickChangedEventArgs>>
+    public class FriendNickChangedEvent : PubSubEvent<(long?, IFriendNickChangedEventArgs)>
     {
 
     }
@@ -42,7 +42,7 @@ namespace KMSakuraLib.Events
     /// <summary>
     /// 新好友申请
     /// </summary>
-    public class NewFriendApplyEvent : PubSubEvent<IKMSakuraMessage<INewFriendApplyEventArgs>>
+    public class NewFriendApplyEvent : PubSubEvent<(long?, INewFriendApplyEventArgs)>
     {
 
     }

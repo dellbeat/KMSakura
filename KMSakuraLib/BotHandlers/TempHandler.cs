@@ -19,7 +19,7 @@ namespace KMSakuraLib.BotHandlers
         public Task HandleMessageAsync(IMiraiSession client, IOtherClientMessageEventArgs message)
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
-            Common.ea.GetEvent<OtherClientMessageEvent>().Publish(new KMSakuraMessage<IOtherClientMessageEventArgs>(session.QQNumber, message));
+            Common.ea.GetEvent<OtherClientMessageEvent>().Publish((session.QQNumber, message));
             ISourceMessage source = message.Chain[0] as ISourceMessage;
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"其他客户端消息：消息ID:({source.Id}) 时间戳:({source.Time})" +
                 $"{message.Sender.Name}(设备类型:{message.Sender.Platform})" +
@@ -37,7 +37,7 @@ namespace KMSakuraLib.BotHandlers
         public Task HandleMessageAsync(IMiraiSession client, IStrangerMessageEventArgs message)
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
-            Common.ea.GetEvent<StrangerMessageEvent>().Publish(new KMSakuraMessage<IStrangerMessageEventArgs>(session.QQNumber, message));
+            Common.ea.GetEvent<StrangerMessageEvent>().Publish((session.QQNumber, message));
             ISourceMessage source = message.Chain[0] as ISourceMessage;
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"陌生人消息：消息ID:({source.Id}) 时间戳:({source.Time})" +
                 $"-{message.Sender.Name}({message.Sender.Id}) -> {string.Join("", (IEnumerable<IChatMessage>)message.Chain)}");
@@ -54,7 +54,7 @@ namespace KMSakuraLib.BotHandlers
         public Task HandleMessageAsync(IMiraiSession client, ITempMessageEventArgs message)
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
-            Common.ea.GetEvent<TempMessageEvent>().Publish(new KMSakuraMessage<ITempMessageEventArgs>(session.QQNumber, message));
+            Common.ea.GetEvent<TempMessageEvent>().Publish((session.QQNumber, message));
             ISourceMessage source = message.Chain[0] as ISourceMessage;
             Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"临时会话消息：消息ID:({source.Id}) 时间戳:({source.Time})" +
                 $"-{message.Sender.Name}({message.Sender.Id}) -> {string.Join("", (IEnumerable<IChatMessage>)message.Chain)}");
