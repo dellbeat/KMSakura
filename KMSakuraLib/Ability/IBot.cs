@@ -17,6 +17,8 @@ namespace KMSakuraLib
         /// </summary>
         long QQNumber { get; }
 
+        IMessageChainBuilder GetBuilder();
+
         #region 登录登出方法
         /// <summary>
         /// 初始化连接

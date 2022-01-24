@@ -21,6 +21,8 @@ using System.Threading;
 using Mirai.CSharp.Models.ChatMessages;
 using System.IO;
 using Mirai.CSharp.HttpApi.Models.EventArgs;
+using KMSakuraLib.Buliders;
+using Mirai.CSharp.HttpApi.Handlers;
 
 namespace KMSakuraLib
 {
@@ -29,6 +31,8 @@ namespace KMSakuraLib
         private static Dictionary<long, IServiceScope> _scopeDic;
 
         private static IServiceProvider _serviceProvider;
+
+        public static Dictionary<long, Bot> BotsDic;
 
         private BotConnectConfig _config;
 
@@ -58,6 +62,7 @@ namespace KMSakuraLib
                 Handler[] handlers = CreateAllInstancesOf<Handler>();
 
                 var builder = servicesCol.AddMiraiBaseFramework();
+                //var builder = new MiraiHttpFrameworkCustomBuilder(servicesCol);
 
                 foreach (IMiraiMessageHandler typeInstance in handlers)//将所有handler通过Bulider接入framework
                 {
@@ -66,7 +71,7 @@ namespace KMSakuraLib
 
                 Type[] parserArray = GetAllClass<Parser>();
 
-                var httpBuilder = builder.Services.AddDefaultMiraiHttpFramework();
+                var httpBuilder = new MiraiHttpFrameworkCustomBuilder(servicesCol).AddDefaultServices();//通过重写相关方法达到自定义输出格式的目的
 
                 foreach (Type handler in parserArray)
                 {
@@ -99,6 +104,7 @@ namespace KMSakuraLib
             {
                 await session.ConnectAsync(config.QQNumber);
                 _scopeDic.Add(config.QQNumber, scope);
+                BotsDic.Add(config.QQNumber, this);
                 _session = session as MiraiScopedHttpSession;
                 Common.RecordLogger.InfoMsg(Common.BotLogName, config.QQNumber.ToString(), $"BOT{config.QQNumber}登录初始化完成");
             }
@@ -127,6 +133,7 @@ namespace KMSakuraLib
                 IServiceScope scope = _scopeDic[QQNumber];
                 IMiraiHttpSession session = scope.ServiceProvider.GetRequiredService<IMiraiHttpSession>();//获取会话
 
+                BotsDic.Remove(QQNumber);
                 session.Dispose();//释放会话
                 _scopeDic.Remove(QQNumber);//移除关联
             }
@@ -138,6 +145,15 @@ namespace KMSakuraLib
             return true;
         }
         #endregion
+
+        public IMessageChainBuilder GetBuilder()
+        {
+            if(_session == null)
+            {
+                return null;
+            }
+            return _session.GetMessageChainBuilder();
+        }
 
         #region 获取账号消息
         public Task<IFriendInfo[]> GetFriendList(CancellationToken token = default)
@@ -356,7 +372,7 @@ namespace KMSakuraLib
 
         public Task<IGroupFileInfo> UploadFile(string id, long groupNumber, string path, CancellationToken token = default)
         {
-            return _session.UploadFileAsync(id, groupNumber, path, token);
+            return _session.UploadFileAsync(groupNumber, id, path, token);
         }
 
         public Task<IGroupFileInfo> UploadFile(long groupNumber, string? id, string fileName, Stream fileStream, CancellationToken token = default)
