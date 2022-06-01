@@ -24,6 +24,18 @@ namespace KMSakura.ViewModels
         Bot botA = null;
         Bot botB = null;
 
+        public MainWindowViewModel()
+        {
+            //Type classType = typeof(KMSakuraLib.BotHandlers.NewFriendApplyHandler); 
+            //Type[] interfaces = classType.GetInterfaces();
+            //foreach (Type interfaceType in interfaces)
+            //{
+
+            //}
+            InitBotConfig();
+            LoginBot();
+        }
+
         private void InitBotConfig()
         {
             botA = new Bot();

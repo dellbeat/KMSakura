@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using KMSakuraLib.Ability;
 using NLog;
+using System.Collections.Concurrent;
 
 namespace KMSakuraLib
 {
@@ -28,12 +29,20 @@ namespace KMSakuraLib
         public static IEventAggregator ea;
 
         /// <summary>
+        /// 全局获取BOT对象字典
+        /// </summary>
+        public static ConcurrentDictionary<long, Bot> BotDic = new ConcurrentDictionary<long, Bot>();
+
+        public static bool InitStatu { get; private set; }
+
+        /// <summary>
         /// 全局组件统一初始化入口
         /// </summary>
         public static void CommonInit()
         {
             InitLogger();
             InitParam();
+            InitStatu = true;
         }
 
         /// <summary>

@@ -227,7 +227,7 @@ namespace KMSakuraLib.BotHandlers
         {
             MiraiScopedHttpSession session = client as MiraiScopedHttpSession;
             Common.ea.GetEvent<GroupMemberHonorEvent>().Publish((session.QQNumber, message));
-            Common.RunLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"群{message.Member.Group.Name}({message.Member.Group.Id})-" +
+            Common.RecordLogger.InfoMsg(Common.BotLogName, session.QQNumber.ToString(), $"群{message.Member.Group.Name}({message.Member.Group.Id})-" +
                 $"成员{message.Member.Name}({message.Member.Id}){(message.State == Mirai.CSharp.Models.GroupHonorState.Achieve ? "获得" : "失去")}荣誉{message.Honor}");
 
             return Task.FromResult(false);

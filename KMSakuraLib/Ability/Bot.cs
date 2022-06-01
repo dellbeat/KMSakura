@@ -36,6 +36,15 @@ namespace KMSakuraLib
 
         private BotConnectConfig _config;
 
+        public Bot()
+        {
+            if (!Common.InitStatu)
+            {
+                Common.CommonInit();
+                BotsDic = new Dictionary<long, Bot>();
+            }
+        }
+
         /// <summary>
         /// 当前BOT绑定的QQ号
         /// </summary>
@@ -107,6 +116,10 @@ namespace KMSakuraLib
                 BotsDic.Add(config.QQNumber, this);
                 _session = session as MiraiScopedHttpSession;
                 Common.RecordLogger.InfoMsg(Common.BotLogName, config.QQNumber.ToString(), $"BOT{config.QQNumber}登录初始化完成");
+                if(!Common.BotDic.TryAdd(config.QQNumber, this))//添加实体对象
+                {
+                    Common.BotDic[config.QQNumber] = this;
+                }
             }
             catch (Exception ex)
             {
@@ -136,6 +149,7 @@ namespace KMSakuraLib
                 BotsDic.Remove(QQNumber);
                 session.Dispose();//释放会话
                 _scopeDic.Remove(QQNumber);//移除关联
+                Common.BotDic.TryRemove(QQNumber, out _);//删除已有实体对象
             }
             catch (Exception ex)
             {

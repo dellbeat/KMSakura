@@ -9,7 +9,7 @@ namespace KMSakuraLib.Event
     /// </summary>
     public class BotDroppedEvent : PubSubEvent<(long?, IBotDroppedEventArgs)>
     {
-
+        
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ namespace KMSakuraLib.Event
     }
 
     /// <summary>
-    /// BOT被迫掉线
+    /// BOT被迫下线
     /// </summary>
     public class BotKickedOfflineEvent : PubSubEvent<(long?, IBotKickedOfflineEventArgs)>
     {
@@ -78,7 +78,7 @@ namespace KMSakuraLib.Event
     }
 
     /// <summary>
-    /// Bot主动离线(有这个功能吗?)
+    /// Bot主动离线(已经有支持主动离线的命令了，后续会支持)
     /// </summary>
     public class BotPositiveOfflineEvent : PubSubEvent<(long?, IBotPositiveOfflineEventArgs)>
     {
