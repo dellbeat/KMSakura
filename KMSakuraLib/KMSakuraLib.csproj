@@ -7,11 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Bot\Engine\Konata\" />
     <Folder Include="Events\" />
     <Folder Include="Messages\" />
     <Folder Include="Models\Message\" />
     <Folder Include="Models\Event\" />
     <Folder Include="Plugins\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Mirai-CSharp">
+      <HintPath>..\..\MiraiCsharp\Mirai-CSharp.HttpApi\bin\Debug\net6.0\Mirai-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Mirai-CSharp.HttpApi">
+      <HintPath>..\..\MiraiCsharp\Mirai-CSharp.HttpApi\bin\Debug\net6.0\Mirai-CSharp.HttpApi.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
